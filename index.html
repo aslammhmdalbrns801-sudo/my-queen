@@ -3,85 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عالمي الخاص ❤️</title>
+    <title>إلى ملكتي ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #000; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; text-align: center; }
-        .login-box { padding: 30px; border: 1px solid #ff4b2b; border-radius: 20px; background: rgba(255,255,255,0.05); width: 280px; z-index: 10; }
-        input { padding: 15px; border-radius: 30px; border: 2px solid #ff4b2b; background: #fff; color: #000; margin-bottom: 20px; width: 80%; text-align: center; outline: none; }
-        .btn { padding: 12px 40px; border-radius: 30px; border: none; background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; cursor: pointer; font-weight: bold; }
-        #main { display: none; width: 100%; z-index: 10; }
-        /* ألبوم الصور */
-        .slideshow { width: 280px; height: 280px; margin: 0 auto 20px; border-radius: 20px; overflow: hidden; border: 3px solid #ff4b2b; box-shadow: 0 0 20px rgba(255,75,43,0.5); position: relative; }
-        .slideshow img { width: 100%; height: 100%; object-fit: cover; position: absolute; top:0; left:0; display: none; transition: opacity 1s ease-in-out; }
-        .timer { font-size: 1.8rem; color: #ff416c; margin: 20px 0; font-weight: bold; }
-        .heart { position: absolute; color: #ff416c; font-size: 20px; animation: fly 10s linear infinite; opacity: 0; }
-        @keyframes fly { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+        :root { --primary: #ff4b2b; --secondary: #ff416c; }
+        body { margin: 0; background: #000; color: white; font-family: 'Cairo', sans-serif; text-align: center; overflow-x: hidden; }
+        
+        /* شاشة الدخول */
+        #login { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: 1s; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); width: 300px; }
+        input { width: 90%; padding: 15px; margin: 20px 0; border-radius: 50px; border: 2px solid var(--primary); background: transparent; color: white; text-align: center; outline: none; }
+        .btn { width: 100%; padding: 15px; border-radius: 50px; border: none; background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; font-weight: bold; cursor: pointer; }
+
+        #main { display: none; padding: 20px; opacity: 0; transition: 2s; }
+
+        /* قسم الصور وتحتها كلام */
+        .photo-strip { margin-top: 50px; }
+        .photo-container { position: relative; margin-bottom: 40px; border-radius: 20px; overflow: hidden; border: 2px solid var(--primary); box-shadow: 0 10px 30px rgba(255,75,43,0.3); }
+        .photo-container img { width: 100%; display: block; filter: brightness(0.8); }
+        .photo-text { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 15px; font-size: 1.2rem; font-weight: bold; color: #fff; }
+
+        /* قسم الكروت الأربعة */
+        .cards-section { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 50px 0; }
+        .magic-card { background: linear-gradient(135deg, #1a1a1a, #000); height: 150px; border-radius: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: 0.5s; }
+        .magic-card:active { transform: scale(0.9); }
+        .card-icon { font-size: 40px; }
+        .card-content { display: none; padding: 10px; font-size: 0.9rem; font-weight: bold; }
+
+        /* الأنميشن بتاع القلب لما يضغط على الكارت */
+        .heart-burst { position: absolute; font-size: 50px; color: var(--primary); opacity: 0; animation: burst 0.8s ease-out; }
+        @keyframes burst { 0% { opacity: 1; transform: scale(0); } 100% { opacity: 0; transform: scale(3); } }
+
+        /* رسالة النهاية */
+        .final-msg-btn { background: var(--primary); padding: 20px; border-radius: 15px; margin: 50px 0; cursor: pointer; display: inline-block; font-weight: bold; }
+        #message-box { display: none; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px dashed var(--primary); margin: 20px auto; min-height: 100px; line-height: 1.8; }
     </style>
 </head>
 <body>
-    <div id="hearts-container"></div>
+
     <div id="login">
-        <div class="login-box">
-            <h2>أهلاً بكِ ❤️</h2>
+        <div class="glass-card">
+            <h2>مملكتي الخاصة ❤️</h2>
             <input type="password" id="passInput" placeholder="كلمة السر...">
-            <button class="btn" onclick="openLove()">دخول ✨</button>
+            <button class="btn" onclick="openLove()">فتح العالم ✨</button>
         </div>
     </div>
+
     <div id="main">
-        <div class="slideshow" id="show">
+        <h1 style="color: var(--secondary)">كل ثانية وإنتي عيدي ❤️</h1>
+        
+        <div class="photo-strip" id="photoStrip">
             </div>
-        <h1>كل ثانية وإنتي عيدي ❤️</h1>
-        <div class="timer" id="timer">بيحسب...</div>
+
+        <h2 style="margin-top: 60px;">اضغطي على الكروت السحرية ✨</h2>
+        <div class="cards-section">
+            <div class="magic-card" onclick="revealCard(this, 'انتي نور عيني وأجمل حد دخل حياتي بجد')">
+                <span class="card-icon">🎁</span>
+                <div class="card-content"></div>
+            </div>
+            <div class="magic-card" onclick="revealCard(this, 'ضحكتك هي اللي بتنور يومي وبتهون عليا كل حاجة')">
+                <span class="card-icon">💖</span>
+                <div class="card-content"></div>
+            </div>
+            <div class="magic-card" onclick="revealCard(this, 'نفسي أفضل معاكي لآخر العمر ونعمل ذكريات أحلى وأحلى')">
+                <span class="card-icon">👑</span>
+                <div class="card-content"></div>
+            </div>
+            <div class="magic-card" onclick="revealCard(this, 'انتي مش بس حبيبتي، انتي كل دنيتي وأغلى ما عندي')">
+                <span class="card-icon">🌸</span>
+                <div class="card-content"></div>
+            </div>
+        </div>
+
+        <div class="final-msg-btn" onclick="showFinalMessage()">إضغطي هنا لرؤية رسالتي الأخيرة 💌</div>
+        <div id="message-box"></div>
+
         <audio id="track" src="song.mp3" loop></audio>
     </div>
+
     <script>
-        // كود القلوب الطايرة
-        function createHeart() {
-            const container = document.getElementById('hearts-container');
-            const heart = document.createElement('div');
-            heart.classList.add('heart'); heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            container.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
-        }
-        setInterval(createHeart, 500);
+        const captions = ["بحبك", "انتي عشقي", "ملكتي الجميلة", "روحي", "نصي التاني", "سندي", "كل حياتي", "أجمل صدفة", "دنيتي", "وعدي ليكي"];
 
         function openLove() {
             if(document.getElementById('passInput').value.toLowerCase() === "love") {
-                document.getElementById('login').style.display = "none";
-                document.getElementById('main').style.display = "block";
-                document.getElementById('track').play();
-
-                // توليد الصور في الألبوم تلقائياً (10 صور)
-                const show = document.getElementById('show');
-                for(let i=1; i<=10; i++) {
-                    const img = document.createElement('img');
-                    img.src = i + '.jpg';
-                    if(i===1) img.style.display = 'block';
-                    show.appendChild(img);
-                }
-
-                // تشغيل الألبوم
-                let index = 0;
-                const imgs = document.querySelectorAll('.slideshow img');
-                setInterval(() => {
-                    imgs[index].style.display = 'none';
-                    index = (index + 1) % imgs.length;
-                    imgs[index].style.display = 'block';
-                }, 3000);
-
-                // العداد
-                const start = new Date(2025, 3, 23);
-                setInterval(() => {
-                    const diff = new Date() - start;
-                    const d = Math.floor(diff / 86400000);
-                    const h = Math.floor((diff / 3600000) % 24);
-                    const m = Math.floor((diff / 60000) % 60);
-                    const s = Math.floor((diff / 1000) % 60);
-                    document.getElementById('timer').innerText = `${d} يوم و ${h}:${m}:${s}`;
+                document.getElementById('login').style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById('login').style.display = "none";
+                    document.getElementById('main').style.display = "block";
+                    setTimeout(() => document.getElementById('main').style.opacity = "1", 100);
+                    document.getElementById('track').play();
+                    setupPhotos();
                 }, 1000);
-            } else { alert("كلمة السر غلط!"); }
+            }
+        }
+
+        function setupPhotos() {
+            const strip = document.getElementById('photoStrip');
+            for(let i=1; i<=10; i++) {
+                const container = document.createElement('div');
+                container.className = 'photo-container';
+                container.innerHTML = `<img src="${i}.jpg"><div class="photo-text">${captions[i-1]}</div>`;
+                strip.appendChild(container);
+            }
+        }
+
+        function revealCard(el, text) {
+            // تأثير انفجار القلب
+            const heart = document.createElement('div');
+            heart.className = 'heart-burst';
+            heart.innerHTML = '❤️';
+            el.appendChild(heart);
+            setTimeout(() => heart.remove(), 800);
+
+            // إظهار الكلام
+            el.querySelector('.card-icon').style.display = 'none';
+            const content = el.querySelector('.card-content');
+            content.innerText = text;
+            content.style.display = 'block';
+            el.style.background = 'rgba(255,65,108,0.2)';
+        }
+
+        function showFinalMessage() {
+            const box = document.getElementById('message-box');
+            box.style.display = 'block';
+            const fullText = "عايز أقولك إنك أحسن حاجة حصلتلي في حياتي.. كل يوم بيمر وإحنا مع بعض بكتشف إني بحبك أكتر من اللي قبله.. شكراً إنك في حياتي يا أجمل ملكة. ❤️";
+            let i = 0;
+            box.innerText = "";
+            function typeWriter() {
+                if (i < fullText.length) {
+                    box.innerHTML += fullText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            typeWriter();
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
 </body>
