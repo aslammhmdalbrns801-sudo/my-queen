@@ -3,408 +3,410 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>👑 Arwa Infinity Palace 👑</title>
+<title>ARWA ∞ IMPERIAL EDITION</title>
 
 <style>
 
 /* =========================================================
-   INFINITY ROYAL ENGINE - ULTRA LUXURY RAMADAN EDITION
+   ARWA IMPERIAL ENGINE
+   VERSION: MAX CORE
+   ARCHITECTURE: Modular Ultra System
    ========================================================= */
 
-*{margin:0;padding:0;box-sizing:border-box}
+/* ================= CORE RESET ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--gold:#d4af37;
+--deep-red:#5a0000;
+--dark:#050507;
+--soft-white:#f2f2f2;
+--glow:0 0 20px var(--gold);
+}
+
 body{
+background:radial-gradient(circle at top,#140000,#000);
+color:var(--soft-white);
 font-family:'Cairo',sans-serif;
-background:#000;
-color:#fff;
 overflow-x:hidden;
+min-height:100vh;
 }
 
-/* ================= COSMIC BACKGROUND ================= */
+/* ================= GLOBAL ANIMATIONS ================= */
 
-#cosmos{
-position:fixed;
-top:0;
-left:0;
-z-index:-3;
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
 }
 
-/* ================= LOCK SCREEN ================= */
+@keyframes glowPulse{
+0%{box-shadow:0 0 10px var(--gold)}
+50%{box-shadow:0 0 40px var(--gold)}
+100%{box-shadow:0 0 10px var(--gold)}
+}
 
-#lock{
+@keyframes floatUp{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-600px);opacity:0}
+}
+
+/* ================= LAYOUT ================= */
+
+.screen{
+display:none;
+padding:60px 20px;
+animation:fadeIn 0.8s ease;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* ================= LOCK ================= */
+
+#lockScreen{
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-background:radial-gradient(circle,#200000,#000);
+background:#000;
 }
 
 .lockBox{
-background:linear-gradient(45deg,#600000,gold);
-padding:50px;
-border-radius:25px;
-box-shadow:0 0 50px gold;
-text-align:center;
-animation:glow 3s infinite alternate;
-}
-
-@keyframes glow{
-from{box-shadow:0 0 20px gold}
-to{box-shadow:0 0 60px red}
+background:linear-gradient(45deg,var(--deep-red),var(--gold));
+padding:60px;
+border-radius:30px;
+animation:glowPulse 3s infinite;
 }
 
 input{
 padding:15px;
-border-radius:10px;
 border:none;
-margin-top:15px;
+border-radius:20px;
 text-align:center;
+margin:15px 0;
 }
 
 button{
 padding:12px 30px;
 border:none;
-border-radius:12px;
-background:gold;
-cursor:pointer;
+border-radius:25px;
+background:var(--gold);
+color:black;
 font-weight:bold;
+cursor:pointer;
 margin:10px;
 transition:.3s;
 }
-button:hover{transform:scale(1.1)}
 
-/* ================= MAIN ================= */
-
-.section{
-display:none;
-padding:40px;
-text-align:center;
-animation:fade .8s ease;
+button:hover{
+transform:scale(1.08);
 }
 
-@keyframes fade{
-from{opacity:0;transform:scale(.9)}
-to{opacity:1;transform:scale(1)}
+/* ================= MENU GRID ================= */
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-top:40px;
 }
 
-/* ================= LOVE TIMER ================= */
+.card{
+background:linear-gradient(145deg,#1a1a1f,#0d0d10);
+padding:40px 20px;
+border-radius:25px;
+box-shadow:var(--glow);
+cursor:pointer;
+transition:.4s;
+}
 
-#timer{
-color:gold;
-font-size:18px;
-margin:20px;
+.card:hover{
+transform:translateY(-8px);
 }
 
 /* ================= GALLERY ================= */
 
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:40px;
+}
+
 .gallery img{
-width:220px;
-margin:15px;
+width:100%;
 border-radius:20px;
 transition:.4s;
-box-shadow:0 0 20px gold;
 }
+
 .gallery img:hover{
-transform:scale(1.15);
+transform:scale(1.1);
 }
 
 .separator{
-background:linear-gradient(45deg,gold,orange);
+padding:20px;
+background:linear-gradient(45deg,var(--gold),orange);
 color:black;
-padding:12px;
-margin:20px;
 border-radius:20px;
-font-weight:bold;
+margin:20px 0;
 }
 
-/* ================= MEMORY ================= */
+/* ================= PARTICLES ================= */
 
-.memory-grid{
-display:grid;
-grid-template-columns:repeat(4,80px);
-gap:12px;
-justify-content:center;
+.particle{
+position:fixed;
+color:red;
+animation:floatUp 4s linear forwards;
+}
+
+/* ================= TIMER ================= */
+
+#loveTimer{
 margin-top:20px;
+opacity:.8;
+font-size:14px;
 }
 
-.card{
-width:80px;height:80px;
-background:#600000;
-border-radius:10px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:25px;
-cursor:pointer;
+/* ================= GAME AREA ================= */
+
+.game-area{
+margin-top:40px;
+min-height:300px;
 }
 
-.card.flipped{
-background:gold;color:black;
-}
+/* ================= FOOTER ================= */
 
-/* ================= HEART GAME ================= */
-
-.heart{
-position:fixed;
-font-size:25px;
-cursor:pointer;
-animation:rise 4s linear forwards;
-}
-
-@keyframes rise{
-from{transform:translateY(0);opacity:1}
-to{transform:translateY(-500px);opacity:0}
-}
-
-/* ================= LANTERNS ================= */
-
-.lantern{
-position:fixed;
-bottom:-100px;
-font-size:30px;
-animation:float 12s linear infinite;
-}
-
-@keyframes float{
-from{transform:translateY(0)}
-to{transform:translateY(-120vh)}
+.footer{
+margin-top:60px;
+opacity:.5;
+font-size:12px;
 }
 
 </style>
 </head>
 <body>
 
-<canvas id="cosmos"></canvas>
-
 <!-- ================= LOCK ================= -->
 
-<div id="lock">
+<div id="lockScreen">
 <div class="lockBox">
-<h1>🔐 قفل قلب أروى الأبدي</h1>
-<input type="password" id="pass" placeholder="كلمة السر">
+<h1>Imperial Access</h1>
+<input type="password" id="password" placeholder="Enter Key">
 <br>
-<button onclick="unlock()">دخول الإمبراطورية</button>
-<p id="error"></p>
+<button onclick="Engine.Security.unlock()">Enter Realm</button>
+<p id="errorMsg"></p>
 </div>
 </div>
 
-<!-- ================= MAIN PALACE ================= -->
+<!-- ================= MAIN ================= -->
 
-<div id="main" class="section">
-<h1>👑 Infinity Royal Palace 👑</h1>
-<div id="timer"></div>
+<div id="mainScreen" class="screen">
 
-<button onclick="openGallery(1,10,'song2.mp3')">خيمة الذكريات</button>
-<button onclick="openGallery(11,20,'song3.mp3')">محراب العشق</button>
-<button onclick="openGallery(21,30,'song4.mp3')">ملاهي الأحلام</button>
-<button onclick="openGallery(31,40,'song2.mp3')">قصر الخلود</button>
+<h1>ARWA ∞ IMPERIAL REALM</h1>
+<div id="loveTimer"></div>
 
-<button onclick="memoryGame()">🧠 لعبة الذاكرة</button>
-<button onclick="wheel()">🎡 عجلة الحظ</button>
-<button onclick="heartGame()">❤️ Catch The Heart</button>
-<button onclick="review()">💌 الرسالة الأخيرة</button>
-<button onclick="cannon()">💥 مدفع الإفطار</button>
+<div class="menu-grid">
+
+<div class="card" onclick="Engine.Navigation.openGallery(1,10)">
+بوابة البدايات
+</div>
+
+<div class="card" onclick="Engine.Navigation.openGallery(11,20)">
+قاعة التفاصيل
+</div>
+
+<div class="card" onclick="Engine.Navigation.openGallery(21,30)">
+حديقة الممكن
+</div>
+
+<div class="card" onclick="Engine.Navigation.openGallery(31,40)">
+ممر الخلود
+</div>
+
+<div class="card" onclick="Engine.Games.memory()">
+Memory Matrix
+</div>
+
+<div class="card" onclick="Engine.Games.catchHearts()">
+Catch The Heart
+</div>
+
+<div class="card" onclick="Engine.Final.show()">
+الرسالة الأخيرة
+</div>
 
 </div>
 
-<div id="gallery" class="section gallery"></div>
-<div id="memory" class="section"></div>
+<div class="footer">
+Imperial Build System v1.0
+</div>
 
-<audio id="music" loop></audio>
+</div>
+
+<!-- ================= GALLERY ================= -->
+
+<div id="galleryScreen" class="screen"></div>
+
+<audio id="bgMusic" loop></audio>
 
 <script>
 
-/* ================= COSMIC ENGINE ================= */
+/* =========================================================
+   IMPERIAL ENGINE CORE
+   ========================================================= */
 
-const canvas=document.getElementById("cosmos");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
+const Engine = {
 
-let stars=[];
-for(let i=0;i<200;i++){
-stars.push({x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2});
-}
+/* ================= SECURITY MODULE ================= */
 
-function animateStars(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="white";
-stars.forEach(s=>{
-ctx.beginPath();
-ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
-ctx.fill();
-s.y+=0.3;
-if(s.y>canvas.height)s.y=0;
-});
-requestAnimationFrame(animateStars);
-}
-animateStars();
-
-/* ================= UNLOCK ================= */
-
-function unlock(){
-if(pass.value==="arwaeslam"){
-lock.style.display="none";
-main.style.display="block";
-play("song.mp3");
-timer();
-lanterns();
+Security:{
+unlock(){
+let pass=document.getElementById("password").value;
+if(pass==="arwaeslam"){
+document.getElementById("lockScreen").style.display="none";
+Engine.Navigation.show("mainScreen");
+Engine.Audio.play("song.mp3");
+Engine.Time.start();
 }else{
-error.innerHTML="كلمة السر غلط.. ارجعي لقلبي فكري فيها ❤️";
+document.getElementById("errorMsg").innerHTML=
+"Access Denied.";
 }
 }
+},
 
-/* ================= MUSIC ================= */
+/* ================= NAVIGATION MODULE ================= */
 
-function play(s){
-music.src=s;
-music.play();
-}
+Navigation:{
+show(id){
+document.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+},
 
-/* ================= TIMER ================= */
+openGallery(start,end){
+Engine.Navigation.show("galleryScreen");
+Engine.Audio.play("song2.mp3");
 
-function timer(){
-let start=new Date("2024-01-01");
-setInterval(()=>{
-let now=new Date();
-let diff=now-start;
-let d=Math.floor(diff/86400000);
-let h=Math.floor(diff/3600000)%24;
-let m=Math.floor(diff/60000)%60;
-let s=Math.floor(diff/1000)%60;
-timer.innerHTML="⏳ "+d+" يوم "+h+" ساعة "+m+" دقيقة "+s+" ثانية حب";
-},1000);
-}
+let g=document.getElementById("galleryScreen");
+g.innerHTML="<h2>Moments Archive</h2><div class='gallery'></div>";
 
-/* ================= GALLERY ================= */
+let container=g.querySelector(".gallery");
 
-function openGallery(a,b,s){
-main.style.display="none";
-gallery.style.display="block";
-gallery.innerHTML="";
-play(s);
-
-for(let i=a;i<=b;i++){
+for(let i=start;i<=end;i++){
 let img=document.createElement("img");
 img.src=i+".jpg";
-gallery.appendChild(img);
+container.appendChild(img);
 
 let sep=document.createElement("div");
 sep.className="separator";
-sep.innerHTML="أنتِ قدر جميل كتبه الله لقلبي ❤️";
-gallery.appendChild(sep);
+sep.innerHTML=Engine.Content.randomText();
+container.appendChild(sep);
 }
 
 let back=document.createElement("button");
-back.innerHTML="رجوع";
+back.innerHTML="Return";
 back.onclick=()=>{
-gallery.style.display="none";
-main.style.display="block";
-play("song.mp3");
-}
-gallery.appendChild(back);
-}
-
-/* ================= MEMORY ================= */
-
-function memoryGame(){
-main.style.display="none";
-memory.style.display="block";
-memory.innerHTML="<h2>🧠 لعبة الذاكرة</h2>";
-
-let emojis=["❤️","🌙","👑","💍","🌹","✨","💌","🥰"];
-let cards=[...emojis,...emojis];
-cards.sort(()=>0.5-Math.random());
-
-let grid=document.createElement("div");
-grid.className="memory-grid";
-memory.appendChild(grid);
-
-let first=null;
-
-cards.forEach(e=>{
-let card=document.createElement("div");
-card.className="card";
-card.innerHTML="?";
-card.onclick=function(){
-if(card.classList.contains("flipped"))return;
-card.innerHTML=e;
-card.classList.add("flipped");
-if(!first)first=card;
-else{
-if(first.innerHTML!==card.innerHTML){
-setTimeout(()=>{
-first.innerHTML="?";
-card.innerHTML="?";
-first.classList.remove("flipped");
-card.classList.remove("flipped");
-first=null;
-},800);
-}else first=null;
-}
-}
-grid.appendChild(card);
-});
-
+Engine.Navigation.show("mainScreen");
+Engine.Audio.play("song.mp3");
+};
+g.appendChild(back);
 }
 
-/* ================= WHEEL ================= */
+},
 
-function wheel(){
-let tasks=[
-"قولي بحبك بصوت عالي ❤️",
-"ابعتلي فويس حالاً 🎙️",
-"بوسي الموبايل 😘",
-"قولي أول ذكرى بينا"
+/* ================= AUDIO MODULE ================= */
+
+Audio:{
+play(src){
+let m=document.getElementById("bgMusic");
+m.src=src;
+m.play();
+}
+},
+
+/* ================= TIME MODULE ================= */
+
+Time:{
+start(){
+let startDate=new Date("2024-01-01");
+setInterval(()=>{
+let now=new Date();
+let diff=now-startDate;
+let days=Math.floor(diff/86400000);
+document.getElementById("loveTimer")
+.innerHTML="Since day one: "+days+" days.";
+},1000);
+}
+},
+
+/* ================= CONTENT MODULE ================= */
+
+Content:{
+texts:[
+"بعض اللحظات لا تنتهي…",
+"تفاصيلك الصغيرة صنعت فرقاً كبيراً.",
+"وجودك غير عادي.",
+"هذه الصور ليست مجرد صور.",
+"أنتِ احتمال لم أتوقعه."
+],
+randomText(){
+return this.texts[
+Math.floor(Math.random()*this.texts.length)
 ];
-alert("🎡 مهمتك: "+tasks[Math.floor(Math.random()*tasks.length)]);
 }
+},
 
-/* ================= HEART GAME ================= */
+/* ================= PARTICLES ================= */
 
-function heartGame(){
-for(let i=0;i<20;i++){
-setTimeout(()=>{
+Effects:{
+hearts(count=20){
+for(let i=0;i<count;i++){
 let h=document.createElement("div");
-h.className="heart";
+h.className="particle";
 h.style.left=Math.random()*100+"%";
 h.innerHTML="❤️";
-h.onclick=()=>{h.remove()}
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),4000);
-},i*200);
 }
 }
+},
 
-/* ================= CANNON ================= */
+/* ================= GAMES MODULE ================= */
 
-function cannon(){
-alert("💥 رمضان كريم يا أجمل أروى 🌙");
-heartGame();
+Games:{
+memory(){
+alert("Memory Game Engine Loaded");
+},
+
+catchHearts(){
+Engine.Effects.hearts(30);
 }
+},
 
-/* ================= LANTERNS ================= */
+/* ================= FINAL ================= */
 
-function lanterns(){
-for(let i=0;i<6;i++){
-let l=document.createElement("div");
-l.className="lantern";
-l.style.left=Math.random()*100+"%";
-l.innerHTML="🏮";
-document.body.appendChild(l);
-}
-}
-
-/* ================= REVIEW ================= */
-
-function review(){
-let r=prompt("اكتبي رأيك ❤️");
-if(r && r.length>=5){
+Final:{
+show(){
+let msg=prompt("اكتبي رأيك:");
+if(msg && msg.length>=5){
 alert("اتصلي بيا فوراً عشان أسمع صوتك\n01279604483");
 }
 }
+}
+
+};
+
+/* =========================================================
+   END OF CORE ENGINE
+   ========================================================= */
 
 </script>
 
