@@ -3,331 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى الأبد - عالمي الخاص ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>المملكة الأسطورية | ملكتي ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700;900&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* 1. الإعدادات العامة والمتغيرات */
         :root {
-            --primary: #ff4b2b;
-            --secondary: #ff416c;
-            --glass: rgba(255, 255, 255, 0.08);
-            --gold: #ffd700;
+            --primary: #ff2d55;
+            --secondary: #ff512f;
+            --accent: #ffd700;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --neon-shadow: 0 0 15px rgba(255, 45, 85, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Cairo', sans-serif; 
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            line-height: 1.6;
+            user-select: none;
         }
 
-        /* خلفية النيازك والنجوم */
-        #universe {
+        /* 2. الخلفية الديناميكية (النجوم والجزيئات) */
+        #bg-canvas {
             position: fixed;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            background: radial-gradient(circle at center, #1a0505 0%, #000 100%);
         }
 
-        /* بوابة الدخول الفخمة */
-        #login-screen {
+        /* 3. شاشة التحميل والدخول */
+        #preloader {
             position: fixed;
             inset: 0;
             background: #000;
-            z-index: 9999;
+            z-index: 10000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: 1.5s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        .login-content {
-            text-align: center;
-            padding: 50px;
-            border-radius: 40px;
+        .loader-heart {
+            font-size: 50px;
+            animation: beat 1s infinite;
+            color: var(--primary);
+            text-shadow: var(--neon-shadow);
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .login-box {
             background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(255,75,43,0.2);
-            width: 90%;
+            backdrop-filter: blur(25px);
+            padding: 40px;
+            border-radius: 40px;
+            border: 1px solid var(--border-glass);
+            width: 85%;
             max-width: 400px;
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
         }
 
-        .login-content h2 { font-weight: 900; margin-bottom: 20px; color: var(--primary); font-size: 2rem; }
+        @keyframes fadeIn { to { opacity: 1; transform: scale(1); } }
 
-        input#passInput {
+        .custom-input {
             width: 100%;
-            padding: 18px;
-            border-radius: 50px;
-            border: 2px solid var(--primary);
             background: rgba(0,0,0,0.5);
-            color: #fff;
+            border: 2px solid var(--border-glass);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
             text-align: center;
             font-size: 1.2rem;
-            margin-bottom: 25px;
+            margin: 25px 0;
             outline: none;
-            transition: 0.4s;
-        }
-
-        input#passInput:focus { box-shadow: 0 0 30px var(--primary); transform: scale(1.02); }
-
-        .enter-btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 50px;
-            border: none;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.3rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255,75,43,0.4);
             transition: 0.3s;
         }
 
-        .enter-btn:hover { letter-spacing: 2px; filter: brightness(1.2); }
+        .custom-input:focus { border-color: var(--primary); box-shadow: var(--neon-shadow); }
 
-        /* المحتوى الرئيسي */
-        #content { display: none; padding-top: 50px; opacity: 0; transition: 2s; }
+        .magical-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 45, 85, 0.3);
+            transition: 0.5s;
+        }
 
-        .header-section { margin-bottom: 80px; }
-        .header-section h1 { font-size: 2.5rem; text-shadow: 0 0 20px var(--primary); }
+        /* 4. المحتوى الرئيسي - الهيكل */
+        #app { display: none; opacity: 0; transition: 2s; }
 
-        /* ستايل الصور (قصة حبنا) */
-        .story-container { padding: 20px; max-width: 600px; margin: 0 auto; }
-        .story-item {
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* 5. العدادات الأسطورية */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 25px;
+            border: 1px solid var(--border-glass);
+            text-align: center;
+        }
+
+        .stat-val { font-size: 1.8rem; font-weight: 900; color: var(--accent); display: block; }
+        .stat-label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; }
+
+        /* 6. قسم الصور (القصة الطولية) */
+        .story-section { padding: 40px 15px; }
+        
+        .image-frame {
             position: relative;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
             border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            transform: translateY(50px);
+            transform: translateY(100px);
             opacity: 0;
-            transition: 1s all ease-out;
+            transition: 1.2s;
         }
-        .story-item.reveal { transform: translateY(0); opacity: 1; }
-        .story-item img { width: 100%; height: auto; transition: 0.6s; }
-        .story-item:hover img { transform: scale(1.05); }
-        .story-caption {
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 30px 20px;
+
+        .image-frame.active { transform: translateY(0); opacity: 1; }
+
+        .image-frame img { width: 100%; border-radius: 30px; transition: 1s; }
+        
+        .image-caption {
             position: absolute;
-            bottom: 0; width: 100%;
-            font-size: 1.5rem;
-            font-weight: bold;
+            bottom: 0; left: 0; right: 0;
+            padding: 30px 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
-        /* العداد المطور */
-        .stats-section {
+        /* 7. مشغل الموسيقى الفخم */
+        .music-player {
             background: var(--glass);
-            margin: 50px auto;
-            padding: 30px;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 800px;
-        }
-        .heart-beat-counter { font-size: 1.2rem; color: var(--gold); margin-bottom: 20px; }
-        .timer-grid { display: flex; justify-content: space-around; gap: 10px; }
-        .t-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 20px; flex: 1; border-bottom: 4px solid var(--primary); }
-        .t-num { display: block; font-size: 1.8rem; font-weight: 900; color: var(--primary); }
-
-        /* الكروت الأربعة السحرية (3D Flip) */
-        .cards-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            margin: 40px 20px;
+            padding: 25px;
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
             gap: 20px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .disc {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: url('1.jpg') center/cover;
+            border: 3px solid var(--primary);
+            animation: rotate 5s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* 8. نظام الكروت (Grid) */
+        .magic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             padding: 20px;
+        }
+
+        .card-item {
+            height: 180px;
             perspective: 1000px;
         }
-        .flip-card { height: 200px; cursor: pointer; position: relative; }
-        .flip-card-inner {
-            position: absolute; width: 100%; height: 100%;
-            transition: transform 0.8s; transform-style: preserve-3d;
-        }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden;
-            border-radius: 25px;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .card-front { background: var(--glass); font-size: 3rem; }
-        .card-back { background: linear-gradient(45deg, #121212, #222); transform: rotateY(180deg); font-weight: bold; color: var(--gold); }
 
-        /* الرسالة النهائية المذهلة */
-        .final-envelope {
-            margin: 100px 0;
-            padding: 40px;
+        .card-inner {
             position: relative;
-        }
-        #typewriter-box {
-            background: #fff;
-            color: #333;
-            padding: 40px;
-            border-radius: 5px;
-            margin: 20px auto;
-            max-width: 500px;
-            min-height: 200px;
-            display: none;
-            box-shadow: 0 10px 50px rgba(255,255,255,0.2);
-            font-family: 'Cairo', serif;
-            font-size: 1.2rem;
-            line-height: 2;
-            text-align: right;
-            border-left: 10px solid var(--primary);
+            width: 100%; height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
         }
 
-        .footer { padding: 50px; color: #555; }
+        .card-item.open .card-inner { transform: rotateY(180deg); }
+
+        .card-face {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .front { background: var(--glass); font-size: 2.5rem; border: 1px solid var(--border-glass); }
+        .back { background: linear-gradient(135deg, var(--primary), var(--secondary)); transform: rotateY(180deg); color: white; }
+
+        /* 9. قسم الرسالة المطول */
+        .letter-container {
+            margin: 60px 20px;
+            padding: 40px 25px;
+            background: #fff;
+            color: #111;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 20px 20px 0 var(--primary);
+            text-align: right;
+            display: none;
+        }
+
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            border-width: 0 40px 40px 0;
+            border-style: solid;
+            border-color: var(--bg-dark) #ddd;
+        }
+
+        /* 10. تذييل الصفحة */
+        footer { padding: 60px; color: #333; font-size: 0.8rem; letter-spacing: 2px; }
 
     </style>
 </head>
 <body>
 
-    <div id="universe"></div>
-    <audio id="track" src="song.mp3" loop></audio>
+    <canvas id="bg-canvas"></canvas>
 
-    <div id="login-screen">
-        <div class="login-content">
-            <h2>مرحباً بملكتي ❤️</h2>
-            <p style="margin-bottom: 20px; color: #ccc;">عالمنا الخاص ينتظركِ..</p>
-            <input type="password" id="passInput" placeholder="كلمة السر">
-            <button class="enter-btn" onclick="unlock()">فتح الأبواب ✨</button>
+    <div id="preloader">
+        <div class="loader-heart">❤️</div>
+        <div class="login-box">
+            <h2 style="font-family: 'Reem Kufi'">مملكة العشق</h2>
+            <p style="font-size: 0.8rem; color: #aaa;">هذا المكان لا يدخله إلا من يملك المفتاح</p>
+            <input type="password" id="passCode" class="custom-input" placeholder="اكتبي كلمة السر...">
+            <button class="magical-btn" onclick="initExperience()">دخول إلى عالمي ✨</button>
         </div>
     </div>
 
-    <div id="content">
-        <header class="header-section">
-            <h1>إلى ملكتي الغالية ❤️</h1>
-            <p>كل لحظة معكِ هي عيد جديد</p>
+    <div id="app">
+        <header>
+            <div class="loader-heart" style="font-size: 80px;">❤️</div>
+            <h1 class="hero-title">أهلاً يا ملكتي</h1>
+            <p style="color: var(--accent); font-weight: 200;">أنتِ لستِ فقط حبيبتي، أنتِ عالمي</p>
         </header>
 
-        <section class="stats-section">
-            <div class="heart-beat-counter">❤️ قلبي دق ليكي حوالي <span id="heart-beats">0</span> مرة</div>
-            <div class="timer-grid">
-                <div class="t-box"><span class="t-num" id="d">0</span><span>يوم</span></div>
-                <div class="t-box"><span class="t-num" id="h">0</span><span>ساعة</span></div>
-                <div class="t-box"><span class="t-num" id="m">0</span><span>دقيقة</span></div>
-                <div class="t-box"><span class="t-num" id="s">0</span><span>ثانية</span></div>
-            </div>
-        </section>
-
-        <div class="story-container" id="story-list">
-            </div>
-
-        <h2 style="margin: 60px 0 30px;">اضغطي على الهدايا ✨</h2>
-        <div class="cards-wrapper">
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="card-front">🎁</div>
-                    <div class="card-back">انتي أجمل صدفة في عمري كله</div>
-                </div>
-            </div>
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="card-front">💖</div>
-                    <div class="card-back">ضحكتك هي اللي بتديني طاقة أعيش</div>
-                </div>
-            </div>
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="card-front">👑</div>
-                    <div class="card-back">انتي ملكة قلبي وحياتي للأبد</div>
-                </div>
-            </div>
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="card-front">🌸</div>
-                    <div class="card-back">وعد مني هفضل سندك وحمايتك</div>
+        <div class="music-player">
+            <div class="disc" id="disc"></div>
+            <div style="flex: 1">
+                <p id="song-name" style="font-weight: 700; margin-bottom: 5px;">أغنيتنا المفضلة ❤️</p>
+                <div style="width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                    <div id="progress" style="width: 0%; height: 100%; background: var(--primary); border-radius: 5px;"></div>
                 </div>
             </div>
         </div>
 
-        <div class="final-envelope">
-            <button class="enter-btn" style="width: auto; padding: 20px 50px;" onclick="openLetter()">إفتحي رسالتي لكِ 💌</button>
-            <div id="typewriter-box"></div>
+        <div class="dashboard">
+            <div class="stat-card"><span class="stat-val" id="d-val">0</span><span class="stat-label">أيام</span></div>
+            <div class="stat-card"><span class="stat-val" id="h-val">0</span><span class="stat-label">ساعات</span></div>
+            <div class="stat-card"><span class="stat-val" id="m-val">0</span><span class="stat-label">دقائق</span></div>
+            <div class="stat-card"><span class="stat-val" id="s-val">0</span><span class="stat-label">ثواني</span></div>
+            <div class="stat-card" style="grid-column: span 2;">
+                <span class="stat-val" id="heart-count" style="color: var(--primary);">0</span>
+                <span class="stat-label">نبضة قلب في حبك</span>
+            </div>
         </div>
 
-        <div class="footer">صنع بكل حب من أجلكِ فقط ❤️</div>
+        <div class="story-section" id="story-mount">
+            </div>
+
+        <h2 style="margin: 40px 0 10px; font-family: 'Reem Kufi';">إليكِ أسرار قلبي..</h2>
+        <div class="magic-grid">
+            <div class="card-item" onclick="toggleCard(this)">
+                <div class="card-inner">
+                    <div class="card-face front">🪄</div>
+                    <div class="card-face back">أنتِ أجمل ما رأت عيني في هذا الكون</div>
+                </div>
+            </div>
+            <div class="card-item" onclick="toggleCard(this)">
+                <div class="card-inner">
+                    <div class="card-face front">🗝️</div>
+                    <div class="card-face back">ضحكتك هي الموسيقى التي تهدئ روحي</div>
+                </div>
+            </div>
+            <div class="card-item" onclick="toggleCard(this)">
+                <div class="card-inner">
+                    <div class="card-face front">🕯️</div>
+                    <div class="card-face back">سأبقى أحبك حتى تتوقف هذه الأرقام عن العد</div>
+                </div>
+            </div>
+            <div class="card-item" onclick="toggleCard(this)">
+                <div class="card-inner">
+                    <div class="card-face front">🎀</div>
+                    <div class="card-face back">أنتِ ملكتي، وصديقتي، وكل أهلي</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 60px 0;">
+            <button class="magical-btn" id="msgBtn" onclick="revealLetter()">إضغطي لفتح رسالتي المخبأة 💌</button>
+            <div id="letter" class="letter-container"></div>
+        </div>
+
+        <footer>
+            PROUDLY MADE FOR THE QUEEN OF MY HEART<br>
+            2025 - FOREVER
+        </footer>
     </div>
 
-    <script>
-        const captions = ["أول مرة شفتك", "ضحكتك اللي خطفتني", "ملكتي", "روحي", "نصي التاني", "سندي", "كل دنيتي", "وعدي ليكي", "أجمل صدفة", "حب العمر"];
+    <audio id="bg-audio" src="song.mp3" loop></audio>
 
-        function unlock() {
-            const pass = document.getElementById('passInput').value;
-            if(pass.toLowerCase() === "love") {
-                document.getElementById('login-screen').style.transform = "translateY(-100%)";
-                setTimeout(() => {
-                    document.getElementById('content').style.display = "block";
-                    setTimeout(() => document.getElementById('content').style.opacity = "1", 100);
-                    startWorld();
-                }, 1000);
-            } else { alert("كلمة السر غلط يا قلبي!"); }
+    <script>
+        /* --- 1. نظام الجزيئات المتقدم --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedX: Math.random() * 1 - 0.5,
+                    speedY: Math.random() * 1 - 0.5,
+                    opacity: Math.random()
+                });
+            }
         }
 
-        function startWorld() {
-            // تشغيل الموسيقى مع زيادة تدريجية في الصوت
-            const audio = document.getElementById('track');
-            audio.volume = 0;
-            audio.play();
-            let vol = 0;
-            const fadeIn = setInterval(() => {
-                if (vol < 0.5) { vol += 0.05; audio.volume = vol; }
-                else clearInterval(fadeIn);
-            }, 200);
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX; p.y += p.speedY;
+                if(p.x > canvas.width) p.x = 0; if(p.y > canvas.height) p.y = 0;
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
 
-            // إنشاء النجوم والنيازك
-            const universe = document.getElementById('universe');
-            for(let i=0; i<150; i++) {
-                const star = document.createElement('div');
-                star.style.cssText = `position:absolute; left:${Math.random()*100}%; top:${Math.random()*100}%; width:2px; height:2px; background:#fff; border-radius:50%; opacity:${Math.random()}; animation: pulse ${2+Math.random()*3}s infinite`;
-                universe.appendChild(star);
+        /* --- 2. نظام الدخول والموسيقى --- */
+        function initExperience() {
+            const pass = document.getElementById('passCode').value;
+            if(pass.toLowerCase() === "love") {
+                document.getElementById('preloader').style.transform = "translateY(-100%)";
+                document.getElementById('app').style.display = "block";
+                setTimeout(() => document.getElementById('app').style.opacity = "1", 100);
+                
+                const audio = document.getElementById('bg-audio');
+                audio.play();
+                
+                // تحديث شريط التقدم للموسيقى
+                audio.ontimeupdate = () => {
+                    const prog = (audio.currentTime / audio.duration) * 100;
+                    document.getElementById('progress').style.width = prog + "%";
+                };
+
+                startCounters();
+                buildStory();
+            } else {
+                alert("كلمة السر خاطئة.. حاول مجدداً يا بطل");
             }
+        }
 
-            // إنشاء الصور
-            const list = document.getElementById('story-list');
+        /* --- 3. بناء الصور والذكريات --- */
+        const captions = ["بدايتنا الجميلة", "عيونك قصة", "ضحكتك حياة", "أنتِ ملكتي", "معكِ أنسى العالم", "نصفي الآخر", "كل دنيتي", "حبي الأبدي", "أجمل صدفة", "وعدي لكِ"];
+        
+        function buildStory() {
+            const mount = document.getElementById('story-mount');
             for(let i=1; i<=10; i++) {
-                const item = document.createElement('div');
-                item.className = 'story-item';
-                item.innerHTML = `<img src="${i}.jpg"><div class="story-caption">${captions[i-1]}</div>`;
-                list.appendChild(item);
+                const div = document.createElement('div');
+                div.className = 'image-frame';
+                div.innerHTML = `<img src="${i}.jpg"><div class="image-caption">${captions[i-1]}</div>`;
+                mount.appendChild(div);
             }
 
-            // العدادات
-            const start = new Date(2025, 3, 23);
+            // أنيميشن الظهور عند التمرير
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('.image-frame').forEach(f => observer.observe(f));
+        }
+
+        /* --- 4. العدادات الاحترافية --- */
+        function startCounters() {
+            const startDate = new Date(2025, 3, 23); // التاريخ المحدد
             setInterval(() => {
                 const now = new Date();
-                const diff = now - start;
-                document.getElementById('d').innerText = Math.floor(diff / 86400000);
-                document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24);
-                document.getElementById('m').innerText = Math.floor((diff / 60000) % 60);
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60);
-                // نبضات القلب (متوسط 80 نبضة في الدقيقة)
-                document.getElementById('heart-beats').innerText = Math.floor(diff / 60000 * 80).toLocaleString();
+                const diff = now - startDate;
+                
+                document.getElementById('d-val').innerText = Math.floor(diff / (1000*60*60*24));
+                document.getElementById('h-val').innerText = Math.floor((diff / (1000*60*60)) % 24);
+                document.getElementById('m-val').innerText = Math.floor((diff / (1000*60)) % 60);
+                document.getElementById('s-val').innerText = Math.floor((diff / 1000) % 60);
+                
+                // عداد نبضات القلب (متوسط 75 نبضة)
+                const beats = Math.floor((diff / 60000) * 75);
+                document.getElementById('heart-count').innerText = beats.toLocaleString();
             }, 1000);
-
-            // أنيميشن الظهور عند السكرول
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('reveal'); });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.story-item').forEach(el => observer.observe(el));
         }
 
-        function openLetter() {
-            const box = document.getElementById('typewriter-box');
-            box.style.display = 'block';
-            const text = "إلى أغلى إنسانة في حياتي.. الكتابة مش بتوصف ربع اللي حاسس بيه ناحيتك. أنتي مش بس حبيبتي، أنتي الأمان والبيت والضحكة اللي بتطلع من القلب. عايزك تعرفي إن كل يوم بيمر وأنا معاكي هو مكسب ليا. بوعدك إني أفضل جنبك، أحميكي، وأسعدك، وأكون ليكي السند اللي عمره ما يميل. بحبك النهاردة، وبكرة، وللأبد يا ملكتي ❤️";
-            let idx = 0;
-            box.innerHTML = "";
-            const typer = setInterval(() => {
-                if(idx < text.length) { box.innerHTML += text[idx]; idx++; }
-                else clearInterval(typer);
-            }, 60);
-            box.scrollIntoView({ behavior: 'smooth' });
+        /* --- 5. وظائف إضافية --- */
+        function toggleCard(el) {
+            el.classList.toggle('open');
         }
+
+        function revealLetter() {
+            const btn = document.getElementById('msgBtn');
+            const letter = document.getElementById('letter');
+            btn.style.display = "none";
+            letter.style.display = "block";
+            
+            const text = "إلى من سكنت قلبي واستعمرت روحي.. \n\nأكتب لكِ هذه الكلمات وأنا أعلم أن الحروف تعجز عن وصف مقامكِ عندي. أنتِ لستِ مجرد مرحلة في حياتي، أنتِ الحياة التي كنت أنتظرها دائماً. كل يوم يمر بجانبك هو هدية من السماء، وكل ضحكة تخرج منكِ تمسح عن قلبي تعب سنين. \n\nأعدكِ أن أكون لكِ السند الذي لا يميل، والحضن الذي يضمكِ في حزنكِ قبل فرحكِ. سأظل أحبكِ بكل تفاصيلكِ، بجنونكِ، بهدوئكِ، وبكل ما فيكِ. \n\nأنتِ ملكتي، والآن وإلى الأبد. ❤️";
+            
+            let i = 0;
+            function type() {
+                if(i < text.length) {
+                    letter.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        window.onload = () => { initParticles(); animateParticles(); };
+        window.onresize = initParticles;
     </script>
 </body>
 </html>
