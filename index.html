@@ -3,328 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مملكة أروى الرمضانية</title>
+<title>👑 Arwa Infinity Palace 👑</title>
 
-<!-- ================== STYLE SECTION ================== -->
 <style>
 
-/* =====================================================
-   GOLD & RED LUXURY THEME
-   ===================================================== */
+/* =========================================================
+   INFINITY ROYAL ENGINE - ULTRA LUXURY RAMADAN EDITION
+   ========================================================= */
 
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-    margin:0;
-    font-family:'Cairo', sans-serif;
-    background: radial-gradient(circle at top,#1a0000,#000);
-    color:#fff;
-    overflow-x:hidden;
+font-family:'Cairo',sans-serif;
+background:#000;
+color:#fff;
+overflow-x:hidden;
 }
 
-/* Animated Neon Background */
-body::before{
-    content:"";
-    position:fixed;
-    width:200%;
-    height:200%;
-    background: radial-gradient(circle, rgba(255,0,0,0.15) 10%, transparent 40%);
-    animation: neonMove 12s linear infinite;
-    z-index:-1;
-}
-@keyframes neonMove{
-    0%{transform:translate(-25%,-25%);}
-    50%{transform:translate(-10%,-10%);}
-    100%{transform:translate(-25%,-25%);}
+/* ================= COSMIC BACKGROUND ================= */
+
+#cosmos{
+position:fixed;
+top:0;
+left:0;
+z-index:-3;
 }
 
-/* Lock Screen */
-#lockScreen{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:black;
+/* ================= LOCK SCREEN ================= */
+
+#lock{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:radial-gradient(circle,#200000,#000);
 }
+
+.lockBox{
+background:linear-gradient(45deg,#600000,gold);
+padding:50px;
+border-radius:25px;
+box-shadow:0 0 50px gold;
+text-align:center;
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+from{box-shadow:0 0 20px gold}
+to{box-shadow:0 0 60px red}
+}
+
 input{
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    text-align:center;
+padding:15px;
+border-radius:10px;
+border:none;
+margin-top:15px;
+text-align:center;
 }
+
 button{
-    padding:10px 20px;
-    margin-top:10px;
-    background:gold;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
+padding:12px 30px;
+border:none;
+border-radius:12px;
+background:gold;
+cursor:pointer;
+font-weight:bold;
+margin:10px;
+transition:.3s;
+}
+button:hover{transform:scale(1.1)}
+
+/* ================= MAIN ================= */
+
+.section{
+display:none;
+padding:40px;
+text-align:center;
+animation:fade .8s ease;
 }
 
-/* Main Menu */
-#mainMenu{
-    display:none;
-    text-align:center;
-    padding:40px;
-}
-.portal{
-    margin:15px;
-    padding:15px;
-    background:linear-gradient(45deg, darkred, gold);
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.3s;
-}
-.portal:hover{
-    transform:scale(1.05);
+@keyframes fade{
+from{opacity:0;transform:scale(.9)}
+to{opacity:1;transform:scale(1)}
 }
 
-/* Gallery */
-.gallery{
-    display:none;
-    padding:20px;
-    text-align:center;
+/* ================= LOVE TIMER ================= */
+
+#timer{
+color:gold;
+font-size:18px;
+margin:20px;
 }
+
+/* ================= GALLERY ================= */
+
 .gallery img{
-    width:250px;
-    margin:10px;
-    border-radius:10px;
-    transition:0.4s;
+width:220px;
+margin:15px;
+border-radius:20px;
+transition:.4s;
+box-shadow:0 0 20px gold;
 }
 .gallery img:hover{
-    transform:scale(1.1);
+transform:scale(1.15);
 }
 
-/* Romantic Separator */
 .separator{
-    margin:20px;
-    padding:10px;
-    background:gold;
-    color:#000;
-    border-radius:10px;
+background:linear-gradient(45deg,gold,orange);
+color:black;
+padding:12px;
+margin:20px;
+border-radius:20px;
+font-weight:bold;
 }
 
-/* Review Section */
-#reviewSection{
-    display:none;
-    text-align:center;
-    padding:40px;
+/* ================= MEMORY ================= */
+
+.memory-grid{
+display:grid;
+grid-template-columns:repeat(4,80px);
+gap:12px;
+justify-content:center;
+margin-top:20px;
 }
 
-/* Floating Hearts */
+.card{
+width:80px;height:80px;
+background:#600000;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:25px;
+cursor:pointer;
+}
+
+.card.flipped{
+background:gold;color:black;
+}
+
+/* ================= HEART GAME ================= */
+
 .heart{
-    position:fixed;
-    color:red;
-    animation: floatUp 4s linear forwards;
+position:fixed;
+font-size:25px;
+cursor:pointer;
+animation:rise 4s linear forwards;
 }
-@keyframes floatUp{
-    from{transform:translateY(0); opacity:1;}
-    to{transform:translateY(-600px); opacity:0;}
+
+@keyframes rise{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-500px);opacity:0}
+}
+
+/* ================= LANTERNS ================= */
+
+.lantern{
+position:fixed;
+bottom:-100px;
+font-size:30px;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(-120vh)}
 }
 
 </style>
 </head>
 <body>
 
-<!-- ================== LOCK SYSTEM ================== -->
+<canvas id="cosmos"></canvas>
 
-<div id="lockScreen">
-    <h1>🔐 قفل قلب أروى</h1>
-    <input type="password" id="password" placeholder="اكتبي كلمة السر">
-    <button onclick="unlock()">دخول</button>
-    <p id="errorMsg"></p>
+<!-- ================= LOCK ================= -->
+
+<div id="lock">
+<div class="lockBox">
+<h1>🔐 قفل قلب أروى الأبدي</h1>
+<input type="password" id="pass" placeholder="كلمة السر">
+<br>
+<button onclick="unlock()">دخول الإمبراطورية</button>
+<p id="error"></p>
+</div>
 </div>
 
-<!-- ================== MAIN MENU ================== -->
+<!-- ================= MAIN PALACE ================= -->
 
-<div id="mainMenu">
-    <h1>🌙 مملكة أروى في رمضان 🌙</h1>
+<div id="main" class="section">
+<h1>👑 Infinity Royal Palace 👑</h1>
+<div id="timer"></div>
 
-    <div class="portal" onclick="openPortal(1)">خيمة الذكريات</div>
-    <div class="portal" onclick="openPortal(2)">محراب العشق</div>
-    <div class="portal" onclick="openPortal(3)">ملاهي الأحلام + عجلة الحظ</div>
-    <div class="portal" onclick="openPortal(4)">قصر الخلود</div>
-    <div class="portal" onclick="showReview()">الرسالة الأخيرة</div>
+<button onclick="openGallery(1,10,'song2.mp3')">خيمة الذكريات</button>
+<button onclick="openGallery(11,20,'song3.mp3')">محراب العشق</button>
+<button onclick="openGallery(21,30,'song4.mp3')">ملاهي الأحلام</button>
+<button onclick="openGallery(31,40,'song2.mp3')">قصر الخلود</button>
 
-    <br>
-    <button onclick="fireCannon()">مدفع الإفطار 💣</button>
+<button onclick="memoryGame()">🧠 لعبة الذاكرة</button>
+<button onclick="wheel()">🎡 عجلة الحظ</button>
+<button onclick="heartGame()">❤️ Catch The Heart</button>
+<button onclick="review()">💌 الرسالة الأخيرة</button>
+<button onclick="cannon()">💥 مدفع الإفطار</button>
+
 </div>
 
-<!-- ================== GALLERIES ================== -->
+<div id="gallery" class="section gallery"></div>
+<div id="memory" class="section"></div>
 
-<div id="gallery1" class="gallery"></div>
-<div id="gallery2" class="gallery"></div>
-<div id="gallery3" class="gallery"></div>
-<div id="gallery4" class="gallery"></div>
-
-<!-- ================== REVIEW SECTION ================== -->
-
-<div id="reviewSection">
-    <h2>اكتبي رأيك في المفاجأة ❤️</h2>
-    <textarea id="reviewText" rows="4" cols="30"></textarea><br>
-    <button onclick="submitReview()">إرسال</button>
-</div>
-
-<!-- ================== AUDIO SYSTEM ================== -->
-
-<audio id="bgMusic" loop></audio>
-
-<!-- ================== SCRIPT SECTION ================== -->
+<audio id="music" loop></audio>
 
 <script>
 
-/* ==============================================
-   GLOBAL VARIABLES & ARRAYS
-   ============================================== */
+/* ================= COSMIC ENGINE ================= */
 
-const romanticQuotes = [
-"أنتِ الهلال الذي أبحث عنه كل مساء 🌙",
-"قلبك موطني الوحيد ❤️",
-"رمضان أحلى وأنتِ فيه ✨",
-"وجودك نعمة أحمد الله عليها كل يوم",
-"كل صورة هنا حكاية حب"
-];
+const canvas=document.getElementById("cosmos");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
 
-/* ==============================================
-   LOCK FUNCTION
-   ============================================== */
+let stars=[];
+for(let i=0;i<200;i++){
+stars.push({x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2});
+}
+
+function animateStars(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+ctx.fill();
+s.y+=0.3;
+if(s.y>canvas.height)s.y=0;
+});
+requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* ================= UNLOCK ================= */
 
 function unlock(){
-    const pass = document.getElementById("password").value;
-    if(pass === "arwaeslam"){
-        document.getElementById("lockScreen").style.display="none";
-        document.getElementById("mainMenu").style.display="block";
-        playMusic("song.mp3");
-    }else{
-        document.getElementById("errorMsg").innerHTML=
-        "كلمة السر غلط.. ارجعي لقلبي فكري فيها ❤️";
-    }
+if(pass.value==="arwaeslam"){
+lock.style.display="none";
+main.style.display="block";
+play("song.mp3");
+timer();
+lanterns();
+}else{
+error.innerHTML="كلمة السر غلط.. ارجعي لقلبي فكري فيها ❤️";
+}
 }
 
-/* ==============================================
-   MUSIC SYSTEM
-   ============================================== */
+/* ================= MUSIC ================= */
 
-function playMusic(file){
-    const music = document.getElementById("bgMusic");
-    music.src = file;
-    music.play();
+function play(s){
+music.src=s;
+music.play();
 }
 
-/* ==============================================
-   PORTAL SYSTEM
-   ============================================== */
+/* ================= TIMER ================= */
 
-function openPortal(num){
-
-    document.getElementById("mainMenu").style.display="none";
-
-    if(num===1){
-        loadGallery(1,10,"gallery1");
-        playMusic("song2.mp3");
-    }
-    if(num===2){
-        loadGallery(11,20,"gallery2");
-        playMusic("song3.mp3");
-    }
-    if(num===3){
-        loadGallery(21,30,"gallery3");
-        playMusic("song4.mp3");
-        createWheel();
-    }
-    if(num===4){
-        loadGallery(31,40,"gallery4");
-        playMusic("song2.mp3");
-    }
+function timer(){
+let start=new Date("2024-01-01");
+setInterval(()=>{
+let now=new Date();
+let diff=now-start;
+let d=Math.floor(diff/86400000);
+let h=Math.floor(diff/3600000)%24;
+let m=Math.floor(diff/60000)%60;
+let s=Math.floor(diff/1000)%60;
+timer.innerHTML="⏳ "+d+" يوم "+h+" ساعة "+m+" دقيقة "+s+" ثانية حب";
+},1000);
 }
 
-/* ==============================================
-   LOAD IMAGES WITH SEPARATORS
-   ============================================== */
+/* ================= GALLERY ================= */
 
-function loadGallery(start,end,id){
-    const gallery = document.getElementById(id);
-    gallery.innerHTML="";
-    gallery.style.display="block";
+function openGallery(a,b,s){
+main.style.display="none";
+gallery.style.display="block";
+gallery.innerHTML="";
+play(s);
 
-    for(let i=start;i<=end;i++){
+for(let i=a;i<=b;i++){
+let img=document.createElement("img");
+img.src=i+".jpg";
+gallery.appendChild(img);
 
-        const img=document.createElement("img");
-        img.src=i+".jpg";
-        gallery.appendChild(img);
-
-        const sep=document.createElement("div");
-        sep.className="separator";
-        sep.innerHTML=romanticQuotes[i%romanticQuotes.length];
-        gallery.appendChild(sep);
-    }
-
-    const backBtn=document.createElement("button");
-    backBtn.innerHTML="رجوع للقائمة";
-    backBtn.onclick=()=>{ 
-        gallery.style.display="none";
-        document.getElementById("mainMenu").style.display="block";
-        playMusic("song.mp3");
-    };
-    gallery.appendChild(backBtn);
+let sep=document.createElement("div");
+sep.className="separator";
+sep.innerHTML="أنتِ قدر جميل كتبه الله لقلبي ❤️";
+gallery.appendChild(sep);
 }
 
-/* ==============================================
-   WHEEL OF LOVE
-   ============================================== */
-
-function createWheel(){
-    const tasks=[
-    "قولي بحبك بصوت عالي ❤️",
-    "بوسي الموبايل 😘",
-    "افتكري أول خروجة",
-    "ابعتلي رسالة دلوقتي"
-    ];
-    const choice=tasks[Math.floor(Math.random()*tasks.length)];
-    setTimeout(()=>alert("مهمتك: "+choice),1500);
-    explodeHearts();
+let back=document.createElement("button");
+back.innerHTML="رجوع";
+back.onclick=()=>{
+gallery.style.display="none";
+main.style.display="block";
+play("song.mp3");
+}
+gallery.appendChild(back);
 }
 
-/* ==============================================
-   HEART ANIMATION
-   ============================================== */
+/* ================= MEMORY ================= */
 
-function explodeHearts(){
-    for(let i=0;i<20;i++){
-        const heart=document.createElement("div");
-        heart.className="heart";
-        heart.style.left=Math.random()*100+"%";
-        heart.innerHTML="❤️";
-        document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),4000);
-    }
+function memoryGame(){
+main.style.display="none";
+memory.style.display="block";
+memory.innerHTML="<h2>🧠 لعبة الذاكرة</h2>";
+
+let emojis=["❤️","🌙","👑","💍","🌹","✨","💌","🥰"];
+let cards=[...emojis,...emojis];
+cards.sort(()=>0.5-Math.random());
+
+let grid=document.createElement("div");
+grid.className="memory-grid";
+memory.appendChild(grid);
+
+let first=null;
+
+cards.forEach(e=>{
+let card=document.createElement("div");
+card.className="card";
+card.innerHTML="?";
+card.onclick=function(){
+if(card.classList.contains("flipped"))return;
+card.innerHTML=e;
+card.classList.add("flipped");
+if(!first)first=card;
+else{
+if(first.innerHTML!==card.innerHTML){
+setTimeout(()=>{
+first.innerHTML="?";
+card.innerHTML="?";
+first.classList.remove("flipped");
+card.classList.remove("flipped");
+first=null;
+},800);
+}else first=null;
+}
+}
+grid.appendChild(card);
+});
+
 }
 
-/* ==============================================
-   REVIEW SUBMISSION
-   ============================================== */
+/* ================= WHEEL ================= */
 
-function showReview(){
-    document.getElementById("mainMenu").style.display="none";
-    document.getElementById("reviewSection").style.display="block";
+function wheel(){
+let tasks=[
+"قولي بحبك بصوت عالي ❤️",
+"ابعتلي فويس حالاً 🎙️",
+"بوسي الموبايل 😘",
+"قولي أول ذكرى بينا"
+];
+alert("🎡 مهمتك: "+tasks[Math.floor(Math.random()*tasks.length)]);
 }
 
-function submitReview(){
-    const text=document.getElementById("reviewText").value;
-    if(text.length<5){
-        alert("اكتبي حاجة أطول شوية ❤️");
-    }else{
-        alert("اتصلي بيا فوراً عشان أسمع صوتك\n01279604483");
-    }
+/* ================= HEART GAME ================= */
+
+function heartGame(){
+for(let i=0;i<20;i++){
+setTimeout(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"%";
+h.innerHTML="❤️";
+h.onclick=()=>{h.remove()}
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+},i*200);
+}
 }
 
-/* ==============================================
-   RAMADAN CANNON
-   ============================================== */
+/* ================= CANNON ================= */
 
-function fireCannon(){
-    alert("💥 مدفع الإفطار ضرب!");
-    explodeHearts();
+function cannon(){
+alert("💥 رمضان كريم يا أجمل أروى 🌙");
+heartGame();
+}
+
+/* ================= LANTERNS ================= */
+
+function lanterns(){
+for(let i=0;i<6;i++){
+let l=document.createElement("div");
+l.className="lantern";
+l.style.left=Math.random()*100+"%";
+l.innerHTML="🏮";
+document.body.appendChild(l);
+}
+}
+
+/* ================= REVIEW ================= */
+
+function review(){
+let r=prompt("اكتبي رأيك ❤️");
+if(r && r.length>=5){
+alert("اتصلي بيا فوراً عشان أسمع صوتك\n01279604483");
+}
 }
 
 </script>
