@@ -3,410 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARWA ∞ IMPERIAL EDITION</title>
+<title>Arwa | Living Realm</title>
 
 <style>
 
-/* =========================================================
-   ARWA IMPERIAL ENGINE
-   VERSION: MAX CORE
-   ARCHITECTURE: Modular Ultra System
-   ========================================================= */
-
-/* ================= CORE RESET ================= */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-:root{
---gold:#d4af37;
---deep-red:#5a0000;
---dark:#050507;
---soft-white:#f2f2f2;
---glow:0 0 20px var(--gold);
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-background:radial-gradient(circle at top,#140000,#000);
-color:var(--soft-white);
 font-family:'Cairo',sans-serif;
+transition:background 2s,color 2s;
 overflow-x:hidden;
 min-height:100vh;
 }
 
-/* ================= GLOBAL ANIMATIONS ================= */
+/* خلفيات حسب الوقت */
+.morning{background:linear-gradient(#f6d365,#fda085);color:#222;}
+.evening{background:linear-gradient(#2c3e50,#4ca1af);color:#fff;}
+.night{background:linear-gradient(#000428,#004e92);color:#fff;}
 
-@keyframes fadeIn{
+.center{
+text-align:center;
+padding:60px 20px;
+animation:fade 1s ease;
+}
+
+@keyframes fade{
 from{opacity:0;transform:translateY(20px)}
 to{opacity:1;transform:translateY(0)}
 }
 
-@keyframes glowPulse{
-0%{box-shadow:0 0 10px var(--gold)}
-50%{box-shadow:0 0 40px var(--gold)}
-100%{box-shadow:0 0 10px var(--gold)}
+button{
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:30px;
+background:#ffcc70;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{transform:scale(1.1)}
+
+.story{
+max-width:600px;
+margin:20px auto;
+line-height:1.8;
+font-size:15px;
+opacity:.9;
+}
+
+.heart{
+position:fixed;
+font-size:18px;
+pointer-events:none;
+animation:floatUp 3s linear forwards;
 }
 
 @keyframes floatUp{
 from{transform:translateY(0);opacity:1}
-to{transform:translateY(-600px);opacity:0}
+to{transform:translateY(-200px);opacity:0}
 }
 
-/* ================= LAYOUT ================= */
-
-.screen{
-display:none;
-padding:60px 20px;
-animation:fadeIn 0.8s ease;
-text-align:center;
-}
-
-.active{
-display:block;
-}
-
-/* ================= LOCK ================= */
-
-#lockScreen{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-background:#000;
-}
-
-.lockBox{
-background:linear-gradient(45deg,var(--deep-red),var(--gold));
-padding:60px;
-border-radius:30px;
-animation:glowPulse 3s infinite;
+#liveText{
+margin-top:20px;
+font-style:italic;
+opacity:.8;
 }
 
 input{
-padding:15px;
-border:none;
+padding:12px;
 border-radius:20px;
+border:none;
+margin-top:15px;
 text-align:center;
-margin:15px 0;
-}
-
-button{
-padding:12px 30px;
-border:none;
-border-radius:25px;
-background:var(--gold);
-color:black;
-font-weight:bold;
-cursor:pointer;
-margin:10px;
-transition:.3s;
-}
-
-button:hover{
-transform:scale(1.08);
-}
-
-/* ================= MENU GRID ================= */
-
-.menu-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-margin-top:40px;
-}
-
-.card{
-background:linear-gradient(145deg,#1a1a1f,#0d0d10);
-padding:40px 20px;
-border-radius:25px;
-box-shadow:var(--glow);
-cursor:pointer;
-transition:.4s;
-}
-
-.card:hover{
-transform:translateY(-8px);
-}
-
-/* ================= GALLERY ================= */
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-top:40px;
-}
-
-.gallery img{
-width:100%;
-border-radius:20px;
-transition:.4s;
-}
-
-.gallery img:hover{
-transform:scale(1.1);
-}
-
-.separator{
-padding:20px;
-background:linear-gradient(45deg,var(--gold),orange);
-color:black;
-border-radius:20px;
-margin:20px 0;
-}
-
-/* ================= PARTICLES ================= */
-
-.particle{
-position:fixed;
-color:red;
-animation:floatUp 4s linear forwards;
-}
-
-/* ================= TIMER ================= */
-
-#loveTimer{
-margin-top:20px;
-opacity:.8;
-font-size:14px;
-}
-
-/* ================= GAME AREA ================= */
-
-.game-area{
-margin-top:40px;
-min-height:300px;
-}
-
-/* ================= FOOTER ================= */
-
-.footer{
-margin-top:60px;
-opacity:.5;
-font-size:12px;
 }
 
 </style>
 </head>
 <body>
 
-<!-- ================= LOCK ================= -->
-
-<div id="lockScreen">
-<div class="lockBox">
-<h1>Imperial Access</h1>
-<input type="password" id="password" placeholder="Enter Key">
+<div id="lock" class="center">
+<h1>Private Moment</h1>
+<input type="password" id="pass" placeholder="Password">
 <br>
-<button onclick="Engine.Security.unlock()">Enter Realm</button>
-<p id="errorMsg"></p>
-</div>
-</div>
-
-<!-- ================= MAIN ================= -->
-
-<div id="mainScreen" class="screen">
-
-<h1>ARWA ∞ IMPERIAL REALM</h1>
-<div id="loveTimer"></div>
-
-<div class="menu-grid">
-
-<div class="card" onclick="Engine.Navigation.openGallery(1,10)">
-بوابة البدايات
+<button onclick="unlock()">Enter</button>
+<p id="error"></p>
 </div>
 
-<div class="card" onclick="Engine.Navigation.openGallery(11,20)">
-قاعة التفاصيل
-</div>
+<div id="main" class="center" style="display:none">
 
-<div class="card" onclick="Engine.Navigation.openGallery(21,30)">
-حديقة الممكن
-</div>
+<h1 id="title"></h1>
+<div id="liveText"></div>
 
-<div class="card" onclick="Engine.Navigation.openGallery(31,40)">
-ممر الخلود
-</div>
+<button onclick="randomStory()">اقرئي حاجة جديدة</button>
+<button onclick="askHer()">قوليلي حاجة</button>
+<button onclick="secretEvent()">حاجة مش متوقعة</button>
 
-<div class="card" onclick="Engine.Games.memory()">
-Memory Matrix
-</div>
-
-<div class="card" onclick="Engine.Games.catchHearts()">
-Catch The Heart
-</div>
-
-<div class="card" onclick="Engine.Final.show()">
-الرسالة الأخيرة
-</div>
+<div id="storyBox" class="story"></div>
 
 </div>
 
-<div class="footer">
-Imperial Build System v1.0
-</div>
-
-</div>
-
-<!-- ================= GALLERY ================= -->
-
-<div id="galleryScreen" class="screen"></div>
-
-<audio id="bgMusic" loop></audio>
+<audio id="music" src="song.mp3" loop></audio>
 
 <script>
 
-/* =========================================================
-   IMPERIAL ENGINE CORE
-   ========================================================= */
+/* ========= مزاج حسب الوقت ========= */
 
-const Engine = {
+function setMood(){
+let hour=new Date().getHours();
+if(hour<12){
+document.body.className="morning";
+title.innerHTML="صباحك مختلف النهارده";
+}
+else if(hour<18){
+document.body.className="evening";
+title.innerHTML="المساء أهدى لما تكوني موجودة";
+}
+else{
+document.body.className="night";
+title.innerHTML="الليل بيبقى أصدق شوية";
+}
+}
+setMood();
 
-/* ================= SECURITY MODULE ================= */
+/* ========= Unlock ========= */
 
-Security:{
-unlock(){
-let pass=document.getElementById("password").value;
-if(pass==="arwaeslam"){
-document.getElementById("lockScreen").style.display="none";
-Engine.Navigation.show("mainScreen");
-Engine.Audio.play("song.mp3");
-Engine.Time.start();
+function unlock(){
+if(pass.value==="arwaeslam"){
+lock.style.display="none";
+main.style.display="block";
+music.play();
+randomLiveText();
 }else{
-document.getElementById("errorMsg").innerHTML=
-"Access Denied.";
+error.innerHTML="مش هي دي… فكري تاني.";
 }
 }
-},
 
-/* ================= NAVIGATION MODULE ================= */
+/* ========= جمل حية عشوائية ========= */
 
-Navigation:{
-show(id){
-document.querySelectorAll(".screen")
-.forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-},
-
-openGallery(start,end){
-Engine.Navigation.show("galleryScreen");
-Engine.Audio.play("song2.mp3");
-
-let g=document.getElementById("galleryScreen");
-g.innerHTML="<h2>Moments Archive</h2><div class='gallery'></div>";
-
-let container=g.querySelector(".gallery");
-
-for(let i=start;i<=end;i++){
-let img=document.createElement("img");
-img.src=i+".jpg";
-container.appendChild(img);
-
-let sep=document.createElement("div");
-sep.className="separator";
-sep.innerHTML=Engine.Content.randomText();
-container.appendChild(sep);
-}
-
-let back=document.createElement("button");
-back.innerHTML="Return";
-back.onclick=()=>{
-Engine.Navigation.show("mainScreen");
-Engine.Audio.play("song.mp3");
-};
-g.appendChild(back);
-}
-
-},
-
-/* ================= AUDIO MODULE ================= */
-
-Audio:{
-play(src){
-let m=document.getElementById("bgMusic");
-m.src=src;
-m.play();
-}
-},
-
-/* ================= TIME MODULE ================= */
-
-Time:{
-start(){
-let startDate=new Date("2024-01-01");
-setInterval(()=>{
-let now=new Date();
-let diff=now-startDate;
-let days=Math.floor(diff/86400000);
-document.getElementById("loveTimer")
-.innerHTML="Since day one: "+days+" days.";
-},1000);
-}
-},
-
-/* ================= CONTENT MODULE ================= */
-
-Content:{
-texts:[
-"بعض اللحظات لا تنتهي…",
-"تفاصيلك الصغيرة صنعت فرقاً كبيراً.",
-"وجودك غير عادي.",
-"هذه الصور ليست مجرد صور.",
-"أنتِ احتمال لم أتوقعه."
-],
-randomText(){
-return this.texts[
-Math.floor(Math.random()*this.texts.length)
+const liveLines=[
+"حاسس إنك هتضحكي فجأة دلوقتي.",
+"في احتمال إن اللحظة دي تبقى مميزة.",
+"أنا مستني رد فعل مش متوقع منك.",
+"مش كل حاجة لازم تبقى كبيرة عشان تبقى مهمة.",
+"يمكن وإنتي بتقري ده تكوني مبتسمة.",
+"في تفاصيل صغيرة بتحصل وإنتي مش واخدة بالك."
 ];
+
+function randomLiveText(){
+liveText.innerHTML=liveLines[Math.floor(Math.random()*liveLines.length)];
 }
-},
 
-/* ================= PARTICLES ================= */
+/* ========= قصص قصيرة مختلفة ========= */
 
-Effects:{
-hearts(count=20){
-for(let i=0;i<count;i++){
+const stories=[
+"فاكرة أول مرة اتكلمنا؟ كان في ارتباك بسيط… بس كان في فضول أكبر.",
+"أوقات بحس إن وجودك جه في توقيت مظبوط جداً.",
+"في مرة ضحكتي فيها من غير سبب واضح… بس السبب الحقيقي إني كنت جنبك.",
+"أكتر حاجة مريحة إننا مش محتاجين نتكلم طول الوقت عشان نحس ببعض.",
+"أجمل حاجة إنك مش نسخة من حد."
+];
+
+function randomStory(){
+storyBox.innerHTML=stories[Math.floor(Math.random()*stories.length)];
+}
+
+/* ========= تفاعل حسب كلامها ========= */
+
+function askHer(){
+let reply=prompt("قوليلّي أي حاجة:");
+if(!reply) return;
+
+if(reply.includes("بحبك")){
+storyBox.innerHTML="عارف… وده كفاية جداً.";
+}
+else if(reply.includes("مجنون")){
+storyBox.innerHTML="ممكن… بس جنوني ليكي بس.";
+}
+else{
+storyBox.innerHTML="حلو إنك قولتي كده… بحب صراحتك.";
+}
+}
+
+/* ========= حدث عشوائي ========= */
+
+function secretEvent(){
+let chance=Math.random();
+
+if(chance<0.3){
+alert("مفاجأة صغيرة ❤️");
+}
+else if(chance<0.6){
+createHearts(15);
+}
+else{
+storyBox.innerHTML="في لحظات بتيجي فجأة… ودي واحدة منهم.";
+}
+}
+
+/* ========= قلوب مع الحركة ========= */
+
+document.addEventListener("mousemove",function(e){
+if(Math.random()<0.1){
 let h=document.createElement("div");
-h.className="particle";
-h.style.left=Math.random()*100+"%";
+h.className="heart";
+h.style.left=e.clientX+"px";
+h.style.top=e.clientY+"px";
 h.innerHTML="❤️";
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),4000);
+setTimeout(()=>h.remove(),3000);
 }
-}
-},
+});
 
-/* ================= GAMES MODULE ================= */
-
-Games:{
-memory(){
-alert("Memory Game Engine Loaded");
-},
-
-catchHearts(){
-Engine.Effects.hearts(30);
-}
-},
-
-/* ================= FINAL ================= */
-
-Final:{
-show(){
-let msg=prompt("اكتبي رأيك:");
-if(msg && msg.length>=5){
-alert("اتصلي بيا فوراً عشان أسمع صوتك\n01279604483");
-}
+function createHearts(n){
+for(let i=0;i<n;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"%";
+h.style.top="80%";
+h.innerHTML="❤️";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),3000);
 }
 }
 
-};
+/* ========= رسالة تتغير كل دقيقة ========= */
 
-/* =========================================================
-   END OF CORE ENGINE
-   ========================================================= */
+setInterval(randomLiveText,60000);
 
 </script>
 
