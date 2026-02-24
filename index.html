@@ -1,584 +1,77 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مملكة العشق الأبدية ❤️</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&family=Reem+Kufi:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    // --- نظام أسئلة إسلام المطور للملكة ---
+    let currentStep = 0;
 
-    <style>
-        /* CSS SECTION - TOTAL STYLING 
-           ---------------------------------------------------
-        */
-        :root {
-            --primary-red: #ff0033;
-            --deep-pink: #ff0080;
-            --gold: #ffd700;
-            --dark-bg: #0a0a0a;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --neon-glow: 0 0 20px rgba(255, 0, 51, 0.6);
-            --transition-speed: 0.8s;
+    // الأسئلة وإجاباتك اللي طلبتها يا إسلام
+    const quizData = [
+        {
+            question: "السؤال الأول: عيد ميلاد حبيبي إسلام إمتى؟ 🎂",
+            answer: "1/6/2006", 
+            hint: "اكتبيها كدة: 1/6/2006"
+        },
+        {
+            question: "السؤال الثاني: إيه أكتر كلمة بتفرحك من حبيبي؟ 💖",
+            answer: "بحبك", 
+            hint: "كلمة من 4 حروف"
+        },
+        {
+            question: "السؤال الثالث: إسم حبيبك الغالي إيه؟ 👑",
+            answer: "اسلام", 
+            hint: "اكتبي إسمه هنا"
         }
+    ];
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+    function checkAnswer() {
+        const userInput = document.getElementById('quizInput').value.trim().toLowerCase();
+        const feedback = document.getElementById('quiz-feedback');
+        const quizBox = document.getElementById('quiz-box');
+        const questionText = document.getElementById('quiz-question');
+        const inputField = document.getElementById('quizInput');
 
-        body {
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+        if (currentStep < quizData.length) {
+            let isCorrect = false;
 
-        /* Background Canvas */
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-        }
-
-        /* 1. Login Screen System */
-        #gatekeeper {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #220000 0%, #000 100%);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1.5s cubic-bezier(1, 0, 0, 1);
-        }
-
-        .auth-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            padding: 50px 30px;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .auth-container h1 {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: 2.5rem;
-            color: var(--primary-red);
-            margin-bottom: 30px;
-            text-shadow: var(--neon-glow);
-        }
-
-        .key-input {
-            width: 100%;
-            padding: 20px;
-            background: rgba(0,0,0,0.6);
-            border: 2px solid var(--primary-red);
-            border-radius: 20px;
-            color: white;
-            font-size: 1.5rem;
-            text-align: center;
-            margin-bottom: 30px;
-            transition: 0.3s;
-        }
-
-        .key-input:focus {
-            box-shadow: 0 0 30px var(--primary-red);
-            transform: translateY(-5px);
-        }
-
-        .unlock-btn {
-            background: linear-gradient(45deg, var(--primary-red), var(--deep-pink));
-            color: white;
-            border: none;
-            padding: 20px 50px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 0, 51, 0.4);
-            transition: 0.5s;
-        }
-
-        .unlock-btn:hover {
-            transform: scale(1.1);
-            letter-spacing: 3px;
-        }
-
-        /* 2. Main Content Layout */
-        #empire-main {
-            display: none;
-            opacity: 0;
-            transition: opacity 2s;
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 100px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* 3. Hero Section */
-        .hero {
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h2 {
-            font-size: 4rem;
-            font-family: 'Reem Kufi';
-            background: linear-gradient(to bottom, #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .floating-heart {
-            font-size: 100px;
-            color: var(--primary-red);
-            animation: pulse 2s infinite ease-in-out;
-            margin: 30px 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px red); }
-            50% { transform: scale(1.2); filter: drop-shadow(0 0 30px red); }
-        }
-
-        /* 4. Advanced Statistics (The Counters) */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .stat-box {
-            background: var(--glass-bg);
-            padding: 30px;
-            border-radius: 30px;
-            border-left: 5px solid var(--primary-red);
-            transition: 0.4s;
-        }
-
-        .stat-box:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-10px);
-        }
-
-        .stat-num {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold);
-        }
-
-        .stat-label {
-            color: #ccc;
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* 5. The Story (Image Strip) */
-        .story-strip {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .photo-card {
-            background: var(--glass-bg);
-            margin-bottom: 100px;
-            padding: 15px;
-            border-radius: 30px;
-            transform: rotateZ(-3deg) scale(0.9);
-            opacity: 0;
-            transition: 1s all;
-        }
-
-        .photo-card.visible {
-            transform: rotateZ(0deg) scale(1);
-            opacity: 1;
-        }
-
-        .photo-card img {
-            width: 100%;
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        .photo-desc {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* 6. Magic Interactive Cards */
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .magic-flip {
-            width: 160px;
-            height: 220px;
-            perspective: 1000px;
-        }
-
-        .magic-flip-inner {
-            position: relative;
-            width: 100%; height: 100%;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-
-        .magic-flip.flipped .magic-flip-inner {
-            transform: rotateY(180deg);
-        }
-
-        .face {
-            position: absolute;
-            width: 100%; height: 100%;
-            backface-visibility: hidden;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .face.front {
-            background: linear-gradient(135deg, #111, #333);
-            font-size: 3rem;
-            border: 1px solid var(--primary-red);
-        }
-
-        .face.back {
-            background: var(--primary-red);
-            transform: rotateY(180deg);
-            font-size: 0.9rem;
-        }
-
-        /* 7. Typewriter Letter Section */
-        .letter-wrap {
-            background: #fff;
-            color: #222;
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            box-shadow: 20px 20px 0 var(--gold);
-            display: none;
-            line-height: 2.2;
-            font-family: 'Amiri', serif;
-            font-size: 1.3rem;
-        }
-
-        /* 8. Audio Visualizer */
-        .music-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 50px;
-            margin-top: 20px;
-        }
-
-        .bar {
-            width: 5px;
-            height: 10px;
-            background: var(--primary-red);
-            animation: bounce 0.5s infinite alternate;
-        }
-
-        @keyframes bounce {
-            from { height: 5px; }
-            to { height: 50px; }
-        }
-
-        /* 9. Footer */
-        footer {
-            padding: 100px 0;
-            text-align: center;
-            color: #444;
-            font-size: 0.8rem;
-        }
-
-    </style>
-</head>
-<body>
-
-    <canvas id="bg-canvas"></canvas>
-
-    <div id="gatekeeper">
-        <div class="auth-container">
-            <h1>مملكتنا ❤️</h1>
-            <p style="color: #aaa; margin-bottom: 20px;">أدخلي الرمز السري لعبور البوابة</p>
-            <input type="password" id="secretKey" class="key-input" placeholder="••••">
-            <button class="unlock-btn" onclick="startTheMagic()">فتح العالم ✨</button>
-        </div>
-    </div>
-
-    <div id="empire-main">
-        
-        <section class="hero">
-            <h2>إلى ملكتي</h2>
-            <div class="floating-heart">❤️</div>
-            <p style="font-size: 1.2rem; letter-spacing: 5px; color: var(--gold);">FOREVER & ALWAYS</p>
-            
-            <div class="music-bar-container">
-                <div class="bar" style="animation-delay: 0.1s"></div>
-                <div class="bar" style="animation-delay: 0.3s"></div>
-                <div class="bar" style="animation-delay: 0.5s"></div>
-                <div class="bar" style="animation-delay: 0.2s"></div>
-                <div class="bar" style="animation-delay: 0.4s"></div>
-            </div>
-        </section>
-
-        <section>
-            <h3 style="margin-bottom: 50px; font-size: 2rem;">رحلة حبنا بالأرقام</h3>
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span class="stat-num" id="days-count">0</span>
-                    <span class="stat-label">يوماً من العشق</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-num" id="hours-count">0</span>
-                    <span class="stat-label">ساعة من الضحك</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-num" id="mins-count">0</span>
-                    <span class="stat-label">دقيقة من الحنين</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-num" id="secs-count">0</span>
-                    <span class="stat-label">ثانية من الوفاء</span>
-                </div>
-                <div class="stat-box" style="grid-column: span 2; border-left: none; border-top: 5px solid var(--gold);">
-                    <span class="stat-num" id="heartbeats-count" style="color: var(--primary-red);">0</span>
-                    <span class="stat-label">نبضة قلب باسمكِ</span>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h3 style="margin-bottom: 50px; font-size: 2.5rem; font-family: 'Reem Kufi';">حكايتنا في صور ✨</h3>
-            <div class="story-strip" id="story-mount">
-                </div>
-        </section>
-
-        <section>
-            <h3 style="margin-bottom: 50px;">اضغطي على الهدايا المخبأة 🎁</h3>
-            <div class="card-container">
-                <div class="magic-flip" onclick="this.classList.toggle('flipped')">
-                    <div class="magic-flip-inner">
-                        <div class="face front">🗝️</div>
-                        <div class="face back">أنتِ المفتاح الذي فتح أبواب سعادتي</div>
-                    </div>
-                </div>
-                <div class="magic-flip" onclick="this.classList.toggle('flipped')">
-                    <div class="magic-flip-inner">
-                        <div class="face front">🕯️</div>
-                        <div class="face back">نور عينيكي هو ما يضيء لي طريقي في الظلام</div>
-                    </div>
-                </div>
-                <div class="magic-flip" onclick="this.classList.toggle('flipped')">
-                    <div class="magic-flip-inner">
-                        <div class="face front">💎</div>
-                        <div class="face back">أنتِ أغلى ما أملك في هذا الكون الواسع</div>
-                    </div>
-                </div>
-                <div class="magic-flip" onclick="this.classList.toggle('flipped')">
-                    <div class="magic-flip-inner">
-                        <div class="face front">🕊️</div>
-                        <div class="face back">معكِ أشعر بالسلام الذي لم أجده يوماً</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <button class="unlock-btn" id="letterBtn" onclick="revealEternalLetter()">إضغطي لفتح رسالتي الأخيرة لكي 💌</button>
-            <div class="letter-wrap" id="letterBox"></div>
-        </section>
-
-        <footer>
-            DESIGNED WITH SOUL BY YOUR LEGENDARY PROTECTOR<br>
-            VERSION 4.0 - NO LIMITS
-        </footer>
-
-    </div>
-
-    <audio id="loveSong" src="song.mp3" loop></audio>
-
-    <script>
-        /* --- 1. Starfield Physics Engine --- */
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 200;
-
-        function initStars() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<particleCount; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 0.5,
-                    speedX: (Math.random() - 0.5) * 0.5,
-                    speedY: (Math.random() - 0.5) * 0.5,
-                    color: i % 10 === 0 ? '#ff0033' : '#fff'
-                });
+            // منطق التحقق من الإجابات
+            if (currentStep === 0 && userInput === quizData[0].answer) {
+                isCorrect = true; // سؤال التاريخ
+            } else if (currentStep === 1 && userInput === quizData[1].answer) {
+                isCorrect = true; // سؤال بحبك
+            } else if (currentStep === 2 && (userInput === "اسلام" || userInput === "إسلام")) {
+                isCorrect = true; // سؤال إسلام (يقبل بالهمزة أو بدون)
             }
-        }
 
-        function animateStars() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                p.x += p.speedX;
-                p.y += p.speedY;
-                if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-            });
-            requestAnimationFrame(animateStars);
-        }
-
-        /* --- 2. Magic Entry Sequence --- */
-        function startTheMagic() {
-            const code = document.getElementById('secretKey').value;
-            if(code.toLowerCase() === 'love') {
-                document.getElementById('gatekeeper').style.transform = 'translateY(-100%)';
-                document.getElementById('empire-main').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('empire-main').style.opacity = '1';
-                }, 100);
+            if (isCorrect) {
+                currentStep++;
                 
-                const music = document.getElementById('loveSong');
-                music.volume = 0;
-                music.play();
-                // Fade in music
-                let vol = 0;
-                const interval = setInterval(() => {
-                    if(vol < 0.6) { vol += 0.05; music.volume = vol; }
-                    else clearInterval(interval);
-                }, 200);
-
-                launchExperience();
-            } else {
-                alert("الرمز السري خاطئ.. قلبي يعرف الرمز الحقيقي ❤️");
-            }
-        }
-
-        /* --- 3. Experience Launcher --- */
-        function launchExperience() {
-            buildStoryStrip();
-            startCalculators();
-            setupScrollObserver();
-        }
-
-        /* --- 4. Story Builder --- */
-        const storyCaptions = ["حبي ليكي", "أجمل عيون", "نور حياتي", "ملكتي", "روحي", "نصي التاني", "سندي", "كل دنيتي", "وعدي ليكي", "لآخر العمر"];
-        
-        function buildStoryStrip() {
-            const mount = document.getElementById('story-mount');
-            for(let i=1; i<=10; i++) {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.innerHTML = `
-                    <img src="${i}.jpg" alt="Memory ${i}">
-                    <div class="photo-desc">${storyCaptions[i-1]}</div>
-                `;
-                mount.appendChild(card);
-            }
-        }
-
-        /* --- 5. Real-time Calculators --- */
-        function startCalculators() {
-            const startDate = new Date(2025, 3, 23); // Date: 23-4-2025
-            
-            setInterval(() => {
-                const now = new Date();
-                const diff = now - startDate;
-
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const m = Math.floor((diff / (1000 * 60)) % 60);
-                const s = Math.floor((diff / 1000) % 60);
-                const beats = Math.floor((diff / 60000) * 80); // Avg 80 bpm
-
-                document.getElementById('days-count').innerText = d;
-                document.getElementById('hours-count').innerText = h;
-                document.getElementById('mins-count').innerText = m;
-                document.getElementById('secs-count').innerText = s;
-                document.getElementById('heartbeats-count').innerText = beats.toLocaleString();
-            }, 1000);
-        }
-
-        /* --- 6. Scroll Observer for Animations --- */
-        function setupScrollObserver() {
-            const options = { threshold: 0.3 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                // تأثير بصري للنجاح
+                quizBox.style.borderColor = "#00ff00";
+                quizBox.style.boxShadow = "0 0 30px #00ff00";
+                
+                setTimeout(() => {
+                    quizBox.style.borderColor = "var(--primary-red)";
+                    quizBox.style.boxShadow = "0 20px 50px rgba(0,0,0,0.5)";
+                    
+                    if (currentStep < quizData.length) {
+                        // الانتقال للسؤال التالي
+                        quizBox.style.opacity = "0";
+                        setTimeout(() => {
+                            questionText.innerText = quizData[currentStep].question;
+                            inputField.placeholder = quizData[currentStep].hint;
+                            inputField.value = "";
+                            feedback.style.display = 'none';
+                            quizBox.style.opacity = "1";
+                        }, 500);
+                    } else {
+                        // تم حل كل الأسئلة.. افتح المملكة يا إسلام!
+                        enterEmpire();
                     }
-                });
-            }, options);
-
-            document.querySelectorAll('.photo-card').forEach(card => observer.observe(card));
-        }
-
-        /* --- 7. The Eternal Letter (Typewriter) --- */
-        function revealEternalLetter() {
-            const btn = document.getElementById('letterBtn');
-            const box = document.getElementById('letterBox');
-            btn.style.display = 'none';
-            box.style.display = 'block';
-
-            const message = "إلى من سكنت الروح واستعمرت الفؤاد.. \n\nأكتب لكِ هذه الكلمات في هذه اللحظة لأخبركِ أنني في كل يوم أكتشف فيكي وطناً جديداً. لقد كنتِ دائماً الحلم الذي لم أجرؤ على تمنيه، واليوم أنتي الحقيقة التي لا أريد العيش بدونها. \n\nأعدكِ أمام الله وأمام هذه النجوم التي تضيء عالمنا الصغير، أن أكون لكي السند الذي لا ينكسر، والأمان الذي لا ينتهي، والحب الذي يزداد مع كل نبضة قلب. شكراً لأنكِ اخترتِ أن تكوني ملكتي. \n\nأحبكِ اليوم، وأحبكِ غداً، وسأظل أحبكِ حتى يتوقف هذا العداد عن العمل. ❤️";
-            
-            let i = 0;
-            function type() {
-                if(i < message.length) {
-                    box.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
-                    i++;
-                    setTimeout(type, 50);
-                }
+                }, 600);
+            } else {
+                // تأثير الهزة لو الإجابة غلط
+                quizBox.style.animation = "shake 0.5s";
+                setTimeout(() => quizBox.style.animation = "", 500);
+                feedback.style.display = 'block';
+                feedback.innerText = "الإجابة غلط يا ملكتي، ركزي شوية.. ❤️";
+                inputField.value = "";
             }
-            type();
-            box.scrollIntoView({ behavior: 'smooth' });
         }
-
-        /* --- 8. Initialization --- */
-        window.onload = () => {
-            initStars();
-            animateStars();
-        };
-        window.onresize = initStars;
-
-    </script>
-</body>
-</html>
+    }
