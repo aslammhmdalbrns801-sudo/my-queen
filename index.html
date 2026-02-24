@@ -3,777 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="A private digital kingdom for the queen of Islam's heart.">
-    <title>إمبراطورية إسلام الأبدية | مَلِكتي ❤️</title>
+    <title>مملكة إسلام وأروى الأبدية 🌙❤️</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&family=Reem+Kufi:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700;900&family=Reem+Kufi:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS SECTION: THE ARCHITECTURE OF LUXURY
-           --------------------------------------------------------------------------------------
-           In this section, we define the visual identity of the kingdom. 
-           Using CSS Variables for easy customization and professional glassmorphism.
-        */
+        /* [CORE DESIGN SYSTEM - CSS VARIABLES] */
         :root {
-            /* Color Palette */
-            --royal-red: #ff0033;
-            --deep-crimson: #8b0000;
-            --pure-gold: #ffd700;
-            --midnight: #050505;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --neon-glow: 0 0 30px rgba(255, 0, 51, 0.6);
-            
-            /* Animation Timing */
-            --slow-mo: 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --fast-mo: 0.3s ease;
+            --royal-gold: #ffcc33;
+            --deep-red: #d00000;
+            --midnight: #020205;
+            --glass-panel: rgba(255, 255, 255, 0.04);
+            --neon-gold: 0 0 25px rgba(255, 204, 51, 0.5);
+            --transition-speed: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-font-smoothing: antialiased;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%;
-            min-height: 100%;
+        /* [RESET & BASE STYLING] */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-font-smoothing: antialiased; }
+        
+        body, html {
+            width: 100%; height: 100%;
             background-color: var(--midnight);
-            color: #ffffff;
+            color: #fff;
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Scrollbar Personalization */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--midnight); }
-        ::-webkit-scrollbar-thumb { background: var(--royal-red); border-radius: 10px; }
-
-        /* Dynamic Background Layer */
-        #interactive-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1a0000 0%, #000 100%);
-        }
-
-        /* 1. AUTHENTICATION / QUIZ STYLING
-           This is the first barrier. Only the queen can pass.
-        */
-        #gatekeeper {
+        /* [MODULE 01: GLOBAL PROTECTION SYSTEM] */
+        #global-entry-lock {
             position: fixed;
             inset: 0;
-            z-index: 10000;
+            z-index: 99999;
             background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 2s cubic-bezier(1, 0, 0, 1);
+            transition: transform 1.5s cubic-bezier(1, 0, 0, 1);
         }
 
-        .auth-shield {
+        .auth-container {
             width: 90%;
-            max-width: 480px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(40px);
-            padding: 60px 30px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
+            max-width: 500px;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            position: relative;
-            overflow: hidden;
+            padding: 50px 30px;
+            border-radius: 40px;
+            background: var(--glass-panel);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 204, 51, 0.3);
         }
 
-        .auth-shield::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, var(--royal-red));
-            animation: rotate-border 4s linear infinite;
-            z-index: -1;
-        }
+        .auth-logo { font-size: 80px; margin-bottom: 20px; animation: glow 2s infinite alternate; }
+        @keyframes glow { from { filter: drop-shadow(0 0 5px var(--royal-gold)); } to { filter: drop-shadow(0 0 25px var(--royal-gold)); } }
 
-        @keyframes rotate-border {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .auth-title {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: 3rem;
-            color: var(--royal-red);
-            margin-bottom: 20px;
-            text-shadow: var(--neon-glow);
-        }
-
-        .q-text {
-            color: #ddd;
-            font-size: 1.2rem;
-            margin-bottom: 35px;
-            line-height: 1.6;
-        }
-
-        .royal-input {
+        .auth-input {
             width: 100%;
             padding: 20px;
-            background: rgba(0,0,0,0.6);
-            border: 2px solid #333;
+            background: #000;
+            border: 2px solid #222;
             border-radius: 20px;
-            color: white;
-            font-size: 1.4rem;
+            color: var(--royal-gold);
+            font-size: 1.5rem;
             text-align: center;
             margin-bottom: 25px;
-            transition: var(--fast-mo);
-            outline: none;
+            transition: 0.3s;
         }
 
-        .royal-input:focus {
-            border-color: var(--royal-red);
-            box-shadow: 0 0 25px rgba(255,0,51,0.4);
-        }
+        .auth-input:focus { border-color: var(--royal-gold); box-shadow: var(--neon-gold); }
 
-        .unlock-trigger {
-            background: linear-gradient(45deg, var(--royal-red), #ff416c);
-            color: white;
-            border: none;
-            padding: 18px 50px;
+        .btn-enter {
+            background: linear-gradient(45deg, var(--royal-gold), #b8860b);
+            color: #000;
+            padding: 15px 50px;
             border-radius: 40px;
             font-weight: 900;
-            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255,0,51,0.3);
-            transition: 0.4s;
+            border: none;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* 2. MAIN APP ARCHITECTURE
-        */
-        #empire-core {
-            display: none;
-            opacity: 0;
-            transition: opacity 3s ease;
-        }
+        /* [MODULE 02: THE MAIN HUB - ORIGINAL CONTENT] */
+        #main-kingdom { display: none; opacity: 0; transition: 2s; }
 
-        .lux-header {
+        header {
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: url('hero-bg.jpg') center/cover; /* Optional */
+            background: radial-gradient(circle at center, #111, #000);
         }
 
         .main-title {
-            font-size: 6rem;
-            font-family: 'Reem Kufi';
-            background: linear-gradient(to bottom, #fff, var(--pure-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 4rem;
+            color: var(--royal-gold);
+            margin-bottom: 10px;
         }
 
-        .heart-icon {
-            font-size: 120px;
-            color: var(--royal-red);
-            animation: pulse-beat 1.5s infinite;
-            filter: drop-shadow(0 0 20px var(--royal-red));
-        }
-
-        @keyframes pulse-beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        /* 3. CHRONO-STATS (Advanced Timers)
-        */
-        .stats-grid {
+        /* Original 10 Images Grid */
+        .original-gallery {
+            padding: 50px 20px;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            padding: 40px 15px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .stat-module {
-            background: var(--glass-bg);
-            padding: 35px 20px;
-            border-radius: 40px;
-            border: 1px solid var(--glass-border);
-            text-align: center;
+        .img-card {
+            background: var(--glass-panel);
+            border-radius: 25px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
             transition: 0.5s;
         }
 
-        .stat-module:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 0, 51, 0.05);
-            border-color: var(--royal-red);
-        }
+        .img-card img { width: 100%; border-radius: 20px; transition: 0.5s; }
+        .img-card:hover { transform: translateY(-10px); border-color: var(--royal-gold); }
 
-        .stat-value {
-            display: block;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--pure-gold);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* 4. ROYAL GALLERY (Scrolling Masterpiece)
-        */
-        .story-container {
-            padding: 80px 20px;
-        }
-
-        .memory-card {
-            position: relative;
-            margin-bottom: 120px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            transform: scale(0.8) translateY(100px);
-            transition: 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .memory-card.revealed {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        .memory-img-wrap {
-            border-radius: 40px;
-            overflow: hidden;
-            border: 3px solid var(--glass-border);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.9);
-        }
-
-        .memory-card img {
-            width: 100%;
-            display: block;
-            transition: 1s;
-        }
-
-        .memory-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .memory-caption {
-            padding: 30px 15px;
-            font-family: 'Amiri', serif;
-            font-size: 1.8rem;
-            color: var(--pure-gold);
+        /* [MODULE 03: THE GATES SECTION] */
+        .gates-section {
+            padding: 100px 20px;
             text-align: center;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            margin-top: -80px;
-            position: relative;
-            z-index: 2;
+            background: linear-gradient(to bottom, #000, #0a0a0a);
         }
 
-        /* 5. INTERACTIVE GIFT BOXES
-        */
-        .gift-section {
+        .gates-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
-            padding: 60px 15px;
+            gap: 40px;
+            margin-top: 50px;
         }
 
-        .mystery-box {
-            width: 170px;
-            height: 240px;
-            perspective: 1000px;
-        }
-
-        .mystery-box-inner {
+        .gate-door {
+            width: 320px;
+            padding: 50px 30px;
+            background: var(--glass-panel);
+            border: 2px solid #222;
+            border-radius: 50px 50px 0 0;
             position: relative;
-            width: 100%; height: 100%;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: var(--transition-speed);
         }
 
-        .mystery-box.opened .mystery-box-inner {
-            transform: rotateY(180deg);
+        .gate-door:hover { border-color: var(--royal-gold); background: rgba(255, 204, 51, 0.05); }
+
+        .gate-door.unlocked { border-color: #00ff00; }
+
+        .gate-door .icon { font-size: 50px; margin-bottom: 20px; }
+
+        /* [MODULE 04: SECTION VIEWPORTS] */
+        .viewport {
+            position: fixed;
+            inset: 0;
+            background: var(--midnight);
+            z-index: 10000;
+            display: none;
+            overflow-y: auto;
+            padding: 80px 20px;
         }
 
-        .box-side {
-            position: absolute;
-            width: 100%; height: 100%;
-            backface-visibility: hidden;
-            border-radius: 30px;
-            display: flex;
+        .close-viewport {
+            position: fixed;
+            top: 30px; left: 30px;
+            background: var(--royal-gold);
+            color: #000;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-weight: 900;
+            cursor: pointer;
+            z-index: 11000;
+        }
+
+        /* [RAMADAN DECORATIONS] */
+        .fanous-sprite {
+            width: 60px;
+            animation: swinging 3s infinite ease-in-out;
+            transform-origin: top center;
+        }
+
+        @keyframes swinging { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
+
+        /* [QUIZ MODAL] */
+        #quiz-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 20000;
+            display: none;
             align-items: center;
             justify-content: center;
+        }
+
+        .quiz-box {
+            background: #111;
+            padding: 50px 30px;
+            border-radius: 40px;
+            border: 2px solid var(--royal-gold);
+            width: 90%; max-width: 450px;
             text-align: center;
-            padding: 20px;
         }
 
-        .box-front {
-            background: linear-gradient(135deg, #111, #222);
-            border: 2px dashed var(--royal-red);
-            font-size: 3.5rem;
-        }
-
-        .box-back {
-            background: var(--royal-red);
-            transform: rotateY(180deg);
-            font-size: 1rem;
-            font-weight: 800;
-        }
-
-        /* 6. THE LEGENDARY LETTER (Typewriter Engine)
-        */
-        .final-scroll-section {
-            padding: 100px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .parchment-paper {
-            background: #fff;
-            color: #111;
-            padding: 50px 35px;
-            border-radius: 5px;
-            max-width: 650px;
-            width: 95%;
-            display: none;
-            box-shadow: 0 0 50px rgba(255,255,255,0.1), 25px 25px 0 var(--pure-gold);
-            font-family: 'Amiri', serif;
-            font-size: 1.4rem;
-            line-height: 2.2;
-            text-align: right;
-            position: relative;
-        }
-
-        .parchment-paper::after {
-            content: 'إسلام ❤️';
-            position: absolute;
-            bottom: 20px; left: 20px;
-            font-size: 2rem;
-            opacity: 0.2;
-        }
-
-        /* 7. MUSIC PLAYER MINI
-        */
-        .music-player-hud {
+        /* [CANNON & HEART ANIMATION] */
+        .heart-particle {
             position: fixed;
-            bottom: 20px; right: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: none;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid var(--glass-border);
-            z-index: 9999;
+            pointer-events: none;
+            z-index: 30000;
+            animation: fly-away 2s forwards ease-out;
         }
 
-        .vinyl-record {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: url('1.jpg') center/cover;
-            animation: spin 3s linear infinite;
-        }
-
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Footer Stylings */
-        footer {
-            padding: 80px 0;
-            color: #333;
-            font-size: 0.8rem;
-            letter-spacing: 4px;
+        @keyframes fly-away {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
 
     </style>
 </head>
 <body>
 
-    <canvas id="interactive-canvas"></canvas>
+    <canvas id="stars" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
 
-    <div id="gatekeeper">
-        <div class="auth-shield" id="quiz-shield">
-            <h2 class="auth-title">مملكة إسلام</h2>
-            <p id="step-desc" class="q-text">أهلاً يا مَلِكتي.. أثبتي هويتك لدخول المملكة.</p>
-            
-            <input type="text" id="royal-input" class="royal-input" placeholder="اكتبي الإجابة هنا...">
-            
-            <div id="auth-err" style="color: #ffff00; margin-bottom: 20px; display: none; font-weight: bold;">
-                الإجابة خاطئة.. قلبي يخبرني أنكِ تستطيعين التذكر ❤️
-            </div>
-            
-            <button class="unlock-trigger" onclick="handleAuth()">الخطوة التالية ✨</button>
+    <div id="global-entry-lock">
+        <div class="auth-container">
+            <div class="auth-logo">🔐</div>
+            <h1 style="font-family:'Reem Kufi'; color:var(--royal-gold); margin-bottom:10px;">دخول المملكة</h1>
+            <p style="margin-bottom:30px; color:#888;">أدخلي كلمة السر الخاصة بكِ يا مَلِكتي</p>
+            <input type="password" id="global-pass" class="auth-input" placeholder="كلمة السر...">
+            <button class="btn-enter" onclick="unlockGlobal()">فتح البوابة العظمى ✨</button>
+            <p id="auth-fail" style="color:red; margin-top:15px; display:none;">كلمة السر خاطئة يا أغلى الناس ❤️</p>
         </div>
     </div>
 
-    <div id="empire-core">
+    <div id="main-kingdom">
         
-        <header class="lux-header">
-            <h1 class="main-title">أهلاً بملكتي</h1>
-            <div class="heart-icon">❤️</div>
-            <p style="letter-spacing: 5px; color: var(--pure-gold); font-size: 1.1rem;">إمبراطورية العشق الأبدي</p>
-            
-            <div style="margin-top: 30px;">
-                <span style="color: #666; font-size: 0.8rem;">S C R O L L &nbsp; D O W N</span>
-            </div>
+        <header>
+            <div class="fanous-sprite" style="position:absolute; top:0; right:10%;">🏮</div>
+            <div class="fanous-sprite" style="position:absolute; top:0; left:10%;">🏮</div>
+            <h1 class="main-title">مملكة إسلام وأروى</h1>
+            <p style="letter-spacing:5px; color:#aaa;">RAMADAN KAREEM 2026</p>
+            <div style="font-size:100px; margin-top:20px;">🌙</div>
         </header>
 
-        <section class="section-container">
-            <h2 style="text-align: center; font-family: 'Reem Kufi'; font-size: 2.5rem; margin-bottom: 40px;">رحلتنا في الزمان ⏳</h2>
-            <div class="stats-grid">
-                <div class="stat-module">
-                    <span class="stat-value" id="days-val">0</span>
-                    <span class="stat-label">يوماً من العشق</span>
-                </div>
-                <div class="stat-module">
-                    <span class="stat-value" id="hours-val">0</span>
-                    <span class="stat-label">ساعة من الضحك</span>
-                </div>
-                <div class="stat-module">
-                    <span class="stat-value" id="mins-val">0</span>
-                    <span class="stat-label">دقيقة من الحنين</span>
-                </div>
-                <div class="stat-module">
-                    <span class="stat-value" id="secs-val">0</span>
-                    <span class="stat-label">ثانية من الوفاء</span>
-                </div>
-                <div class="stat-module" style="grid-column: span 2; border-top: 2px solid var(--royal-red);">
-                    <span class="stat-value" id="beats-val" style="color: var(--royal-red);">0</span>
-                    <span class="stat-label">نبضة قلب باسمكِ يا ملكتي</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="story-container" id="gallery-mount">
+        <section class="original-gallery" id="hub-gallery">
+            <h2 style="grid-column: 1/-1; text-align:center; font-family:'Reem Kufi'; margin-bottom:30px; color:var(--royal-gold);">ذكريات القصر الرئيسية</h2>
             </section>
 
-        <section class="section-container">
-            <h2 style="text-align: center; font-family: 'Reem Kufi'; font-size: 2.5rem; margin-bottom: 20px;">هدايا من قلبي 🎁</h2>
-            <div class="gift-section">
-                <div class="mystery-box" onclick="this.classList.toggle('opened')">
-                    <div class="mystery-box-inner">
-                        <div class="box-side box-front">🗝️</div>
-                        <div class="box-side box-back">أنتِ المفتاح الذي فتح أبواب سعادتي يا مَلِكتي</div>
-                    </div>
+        <section class="gates-section">
+            <h2 style="font-family:'Reem Kufi'; font-size:2.5rem; margin-bottom:50px; color:var(--royal-gold);">بوابات الإمبراطورية المفقودة</h2>
+            <div class="gates-grid">
+                <div class="gate-door" id="gate-1" onclick="handleGateClick(1)">
+                    <div class="icon">🕌</div>
+                    <h3>خيمة صور 11-20</h3>
+                    <p style="color:#666; font-size:0.8rem; margin-top:10px;">تتطلب: تاريخ الميلاد</p>
                 </div>
-                <div class="mystery-box" onclick="this.classList.toggle('opened')">
-                    <div class="mystery-box-inner">
-                        <div class="box-side box-front">💍</div>
-                        <div class="box-side box-back">وعدي لكِ أن أظل سندكِ وجيشكِ وحمايتكِ للأبد</div>
-                    </div>
+                <div class="gate-door" id="gate-2" onclick="handleGateClick(2)">
+                    <div class="icon">🏮</div>
+                    <h3>محراب صور 21-30</h3>
+                    <p style="color:#666; font-size:0.8rem; margin-top:10px;">تتطلب: كلمة السر العاطفية</p>
                 </div>
-                <div class="mystery-box" onclick="this.classList.toggle('opened')">
-                    <div class="mystery-box-inner">
-                        <div class="box-side box-front">🕯️</div>
-                        <div class="box-side box-back">نور وجهكِ هو ما يضيء لي عتمة هذا العالم</div>
-                    </div>
-                </div>
-                <div class="mystery-box" onclick="this.classList.toggle('opened')">
-                    <div class="mystery-box-inner">
-                        <div class="box-side box-front">🎀</div>
-                        <div class="box-side box-back">أنتِ أجمل عطايا الرحمن لي في هذه الحياة</div>
-                    </div>
+                <div class="gate-door" id="gate-3" onclick="handleGateClick(3)">
+                    <div class="icon">💍</div>
+                    <h3>قصر صور 31-40</h3>
+                    <p style="color:#666; font-size:0.8rem; margin-top:10px;">تتطلب: اسم الحبيب</p>
                 </div>
             </div>
         </section>
 
-        <section class="final-scroll-section">
-            <button class="unlock-trigger" id="letter-trigger" onclick="unfoldLetter()">إضغطي لفتح رسالة إسلام الأخيرة 💌</button>
-            <div id="parchment" class="parchment-paper"></div>
-        </section>
-
-        <footer style="text-align: center;">
-            DESIGNED WITH SOUL BY ISLAM ❤️ FOR HIS ONE & ONLY QUEEN<br>
-            VERSION 7.0 PRO ARCHITECTURE | 2026
+        <footer style="text-align:center; padding:100px 20px; color:#333; letter-spacing:3px;">
+            MADE WITH IMMORTAL LOVE BY ISLAM FOR HIS QUEEN ARWA ❤️ 2026
         </footer>
     </div>
 
-    <div class="music-player-hud" id="music-hud">
-        <div class="vinyl-record"></div>
-        <div style="font-size: 0.8rem;">أغنيتنا المفضلة تعمل الآن... 🎶</div>
+    <div id="view-1" class="viewport">
+        <button class="close-viewport" onclick="closeSection()">✕</button>
+        <h2 style="text-align:center; font-family:'Reem Kufi'; font-size:2.5rem; color:var(--royal-gold);">ذكرياتنا (11 - 20)</h2>
+        <div class="original-gallery" id="gal-1"></div>
     </div>
 
-    <audio id="royal-audio" src="song.mp3" loop></audio>
+    <div id="view-2" class="viewport">
+        <button class="close-viewport" onclick="closeSection()">✕</button>
+        <h2 style="text-align:center; font-family:'Reem Kufi'; font-size:2.5rem; color:var(--royal-gold);">ذكرياتنا (21 - 30)</h2>
+        <div style="text-align:center; margin:30px 0;">
+            <p>اضغطي على مدفع رمضان ليطلق حبنا</p>
+            <button onclick="fireCannon()" style="font-size:80px; background:none; border:none; cursor:pointer;">💣</button>
+        </div>
+        <div class="original-gallery" id="gal-2"></div>
+    </div>
+
+    <div id="view-3" class="viewport">
+        <button class="close-viewport" onclick="closeSection()">✕</button>
+        <h2 style="text-align:center; font-family:'Reem Kufi'; font-size:2.5rem; color:var(--royal-gold);">ذكرياتنا (31 - 40)</h2>
+        <div class="original-gallery" id="gal-3"></div>
+        <div id="letter-final" style="max-width:700px; margin:50px auto; background:#fff; color:#000; padding:40px; border-radius:10px; font-family:'Amiri'; display:none;">
+            أروى.. أنتي النعمة اللي بدعي ربنا تدوم كل يوم في رمضان وفي كل يوم من عمري. بحبك يا ملكتي. ❤️
+        </div>
+        <button class="btn-enter" style="display:block; margin:40px auto;" onclick="document.getElementById('letter-final').style.display='block'; this.style.display='none';">إفتحي رسالة الختام 💌</button>
+    </div>
+
+    <div id="quiz-modal">
+        <div class="quiz-box">
+            <h2 id="quiz-title" style="color:var(--royal-gold);">سؤال الدخول</h2>
+            <p id="quiz-desc" style="margin-top:10px; color:#aaa;"></p>
+            <input type="text" id="quiz-input" class="auth-input" style="margin-top:20px;" placeholder="الإجابة...">
+            <button class="btn-enter" onclick="checkQuizAnswer()">تأكيد الإجابة ✨</button>
+            <p id="quiz-fail" style="color:red; margin-top:15px; display:none;">غلط يا روحي.. فكري تاني ❤️</p>
+        </div>
+    </div>
+
+    <audio id="audio-1" src="song1.mp3" loop></audio>
+    <audio id="audio-2" src="song2.mp3" loop></audio>
+    <audio id="audio-3" src="song3.mp3" loop></audio>
+    <audio id="audio-4" src="song4.mp3" loop></audio>
+    <audio id="cannon-sound" src="https://www.soundjay.com/mechanical/gun-gunshot-01.mp3"></audio>
 
     <script>
-        /**
-         * 1. THE AUTHENTICATION ENGINE
-         * This handles the 3-step quiz required to enter the kingdom.
-         */
-        let authStep = 0;
-        const secretData = [
-            { q: "السؤال الأول: عيد ميلاد حبيبي إسلام إمتى؟ 🎂", a: "1/6/2006" },
-            { q: "السؤال الثاني: إيه أكتر كلمة بتفرحك من حبيبك؟ 💖", a: "بحبك" },
-            { q: "السؤال الثالث: إسم حبيبك الغالي إيه؟ 👑", a: "إسلام" }
+        /* [ISLAM'S GRAND JAVASCRIPT ENGINE] */
+
+        let activeGate = 0;
+        const gates = [
+            { q: "عيد ميلاد حبيبك إسلام إمتى؟", a: "1/6/2006", unlocked: false },
+            { q: "إيه أكتر كلمة بتفرحك من إسلام؟", a: "بحبك", unlocked: false },
+            { q: "إسم حبيبك الغالي إيه؟", a: "إسلام", unlocked: false }
         ];
 
-        function handleAuth() {
-            const inputField = document.getElementById('royal-input');
-            const feedback = document.getElementById('auth-err');
-            const shield = document.getElementById('quiz-shield');
-            const desc = document.getElementById('step-desc');
-            const val = inputField.value.trim();
+        // 1. GLOBAL ACCESS
+        function unlockGlobal() {
+            const pass = document.getElementById('global-pass').value.trim();
+            if (pass === "arwaeslam") {
+                document.getElementById('global-entry-lock').style.transform = "translateY(-100%)";
+                document.getElementById('main-kingdom').style.display = "block";
+                setTimeout(() => {
+                    document.getElementById('main-kingdom').style.opacity = "1";
+                    playMusic(1);
+                    injectPhotos('hub-gallery', 1, 10);
+                }, 100);
+            } else {
+                const fail = document.getElementById('auth-fail');
+                fail.style.display = 'block';
+                setTimeout(() => fail.style.display = 'none', 2000);
+            }
+        }
 
+        // 2. GATE SYSTEM
+        function handleGateClick(id) {
+            activeGate = id;
+            const gate = gates[id-1];
+            if (gate.unlocked) {
+                openSection(id);
+            } else {
+                document.getElementById('quiz-title').innerText = `بوابة القسم رقم ${id}`;
+                document.getElementById('quiz-desc').innerText = gate.q;
+                document.getElementById('quiz-modal').style.display = 'flex';
+                document.getElementById('quiz-input').value = "";
+            }
+        }
+
+        function checkQuizAnswer() {
+            const input = document.getElementById('quiz-input').value.trim();
+            const gate = gates[activeGate-1];
             let isCorrect = false;
-            
-            // Logic for Step-by-Step Validation
-            if (authStep === 0 && val === secretData[0].a) isCorrect = true;
-            if (authStep === 1 && val === secretData[1].a) isCorrect = true;
-            if (authStep === 2 && (val === "إسلام" || val === "اسلام")) isCorrect = true;
+
+            if (activeGate === 1 && input === gate.a) isCorrect = true;
+            if (activeGate === 2 && input === "بحبك") isCorrect = true;
+            if (activeGate === 3 && (input === "اسلام" || input === "إسلام")) isCorrect = true;
 
             if (isCorrect) {
-                authStep++;
-                feedback.style.display = 'none';
-                inputField.value = "";
-                
-                // Visual Success Feedback
-                shield.style.borderColor = "#00ff00";
-                setTimeout(() => shield.style.borderColor = "var(--glass-border)", 500);
-
-                if (authStep < secretData.length) {
-                    // Smooth Transition to Next Question
-                    shield.style.opacity = '0';
-                    setTimeout(() => {
-                        desc.innerText = secretData[authStep].q;
-                        inputField.placeholder = "جاوبي بصدق...";
-                        shield.style.opacity = '1';
-                    }, 600);
-                } else {
-                    // Final Gate Opening
-                    openTheKingdom();
-                }
+                gate.unlocked = true;
+                document.getElementById(`gate-${activeGate}`).classList.add('unlocked');
+                document.getElementById('quiz-modal').style.display = 'none';
+                openSection(activeGate);
             } else {
-                // Visual Error Feedback (Shake Animation)
-                shield.style.animation = "shake 0.5s ease";
-                setTimeout(() => shield.style.animation = "", 500);
-                feedback.style.display = 'block';
-                inputField.value = "";
+                const fail = document.getElementById('quiz-fail');
+                fail.style.display = 'block';
+                setTimeout(() => fail.style.display = 'none', 2000);
             }
         }
 
-        /**
-         * 2. THE TRANSITION ENGINE
-         * Smoothly moves the user from the quiz to the main content.
-         */
-        function openTheKingdom() {
-            document.getElementById('gatekeeper').style.transform = "translateY(-100%)";
-            document.getElementById('empire-core').style.display = "block";
+        // 3. NAVIGATION & MEDIA
+        function openSection(id) {
+            document.getElementById(`view-${id}`).style.display = 'block';
+            stopAllMusic();
+            playMusic(id + 1); // Song 2 for View 1, etc.
             
-            setTimeout(() => {
-                document.getElementById('empire-core').style.opacity = "1";
-                document.getElementById('music-hud').style.display = "flex";
-            }, 100);
-
-            // Audio Activation (Autoplay bypass)
-            const audio = document.getElementById('royal-audio');
-            audio.play().catch(() => console.log("Audio needs interaction"));
-
-            // Initialize all sub-systems
-            initChronoStats();
-            initRoyalGallery();
-            setupIntersectionObserver();
+            if (id === 1) injectPhotos('gal-1', 11, 20);
+            if (id === 2) injectPhotos('gal-2', 21, 30);
+            if (id === 3) injectPhotos('gal-3', 31, 40);
         }
 
-        /**
-         * 3. THE CHRONO-STATS ENGINE (Advanced Timers)
-         * Calculates the exact time and simulated heartbeats.
-         */
-        function initChronoStats() {
-            const startDate = new Date(2025, 3, 23); // April 23, 2025
-            
-            function updateCounters() {
-                const now = new Date();
-                const diff = now - startDate;
-
-                // Time Calculations
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const mins = Math.floor((diff / (1000 * 60)) % 60);
-                const secs = Math.floor((diff / 1000) % 60);
-                
-                // Simulated Heartbeats (Avg 75 BPM)
-                const beats = Math.floor((diff / 60000) * 75);
-
-                document.getElementById('days-val').innerText = days;
-                document.getElementById('hours-val').innerText = hours;
-                document.getElementById('mins-val').innerText = mins;
-                document.getElementById('secs-val').innerText = secs;
-                document.getElementById('beats-val').innerText = beats.toLocaleString();
+        function closeSection() {
+            for(let i=1; i<=3; i++) {
+                document.getElementById(`view-${i}`).style.display = 'none';
             }
-
-            setInterval(updateCounters, 1000);
-            updateCounters();
+            stopAllMusic();
+            playMusic(1);
         }
 
-        /**
-         * 4. THE GALLERY ENGINE
-         * Dynamically builds the image story with captions.
-         */
-        const captions = [
-            "أنتِ النبض الذي يحيي عروقي ❤️",
-            "عيناكِ هما وطني وملاذي الوحيد ✨",
-            "ضحكتكِ هي اللحن الذي يراقص روحي 😍",
-            "يا مَلِكة تربعت على عرش قلبي للأبد 👑",
-            "بجانبكِ فقط أشعر أنني امتلكت الدنيا 🌍",
-            "أنتِ المعنى الحقيقي للجمال في هذا الكون 🌸",
-            "كل ثانية معكِ هي عمرٌ كاملٌ من السعادة ⏳",
-            "أحبكِ اليوم، وأحبكِ غداً، وأحبكِ للأبد ❤️",
-            "أنتِ النور الذي بدد ظلمات أيامي 🕯️",
-            "وعدي لكِ.. سأبقى السند الذي لا يميل 💍"
-        ];
+        function playMusic(id) {
+            const m = document.getElementById(`audio-${id}`);
+            if(m) m.play().catch(e => console.log("Audio needs user gesture"));
+        }
 
-        function initRoyalGallery() {
-            const mount = document.getElementById('gallery-mount');
-            for (let i = 1; i <= 10; i++) {
+        function stopAllMusic() {
+            for(let i=1; i<=4; i++) {
+                const m = document.getElementById(`audio-${i}`);
+                if(m) { m.pause(); m.currentTime = 0; }
+            }
+        }
+
+        // 4. PHOTO INJECTION
+        function injectPhotos(containerId, start, end) {
+            const container = document.getElementById(containerId);
+            if(container.children.length > 5) return; // Already injected
+            
+            for(let i = start; i <= end; i++) {
                 const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.innerHTML = `
-                    <div class="memory-img-wrap">
-                        <img src="${i}.jpg" alt="Memory ${i}">
-                    </div>
-                    <div class="memory-caption">${captions[i-1]}</div>
-                `;
-                mount.appendChild(card);
+                card.className = 'img-card';
+                card.innerHTML = `<img src="${i}.jpg" loading="lazy">`;
+                container.appendChild(card);
             }
         }
 
-        /**
-         * 5. SCROLL OBSERVER (Cinematic Revelation)
-         * Detects when elements enter the screen and animates them.
-         */
-        function setupIntersectionObserver() {
-            const options = { threshold: 0.2, rootMargin: "0px" };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                    }
-                });
-            }, options);
-
-            // Wait for DOM injection
-            setTimeout(() => {
-                document.querySelectorAll('.memory-card').forEach(card => {
-                    observer.observe(card);
-                });
-            }, 500);
+        // 5. CANNON EFFECT
+        function fireCannon() {
+            document.getElementById('cannon-sound').play();
+            for(let i=0; i<30; i++) {
+                createHeart();
+            }
         }
 
-        /**
-         * 6. THE BACKGROUND ENGINE (Canvas Hearts)
-         * A physics-based particle system for the background.
-         */
-        const canvas = document.getElementById('interactive-canvas');
+        function createHeart() {
+            const h = document.createElement('div');
+            h.className = 'heart-particle';
+            h.innerHTML = ['❤️','💖','✨','🏮','🌙'][Math.floor(Math.random()*5)];
+            h.style.left = '50%';
+            h.style.bottom = '150px';
+            h.style.fontSize = (Math.random()*20 + 20) + 'px';
+            
+            const tx = (Math.random() - 0.5) * window.innerWidth;
+            const ty = -(Math.random() * window.innerHeight);
+            h.style.setProperty('--tx', `${tx}px`);
+            h.style.setProperty('--ty', `${ty}px`);
+            
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 2000);
+        }
+
+        // 6. STAR SYSTEM
+        const canvas = document.getElementById('stars');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class HeartParticle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 0, 51, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 150; i++) {
-                particles.push(new HeartParticle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let starsArr = [];
+        for(let i=0; i<150; i++) {
+            starsArr.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2,
+                v: Math.random() * 0.05
             });
-            requestAnimationFrame(animate);
         }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        initParticles();
-        animate();
-
-        /**
-         * 7. THE FINAL LETTER ENGINE (Typewriter)
-         * Handles the slow reveal of the emotional letter.
-         */
-        function unfoldLetter() {
-            document.getElementById('letter-trigger').style.display = 'none';
-            const box = document.getElementById('parchment');
-            box.style.display = 'block';
-
-            const message = `إلى مَلِكتي الغالية.. \n\nأنا إسلام، وبكل نبضة في قلبي أكتب لكِ هذه الكلمات. أنتِ لستِ مجرد مرحلة في حياتي، أنتِ الحياة ذاتها التي كنتُ أبحثُ عنها دائماً. منذ اللحظة التي دخلتِ فيها عالمي، أصبح لكل شيء معنى، وأصبح للضحكة طعمٌ مختلف. \n\nأعدُكِ أمام الله وأمام هذه النجوم التي تضيء عالمنا، أن أظل سندكِ الذي لا يميل، وحمايتكِ التي لا تنكسر، وحضنكِ الذي يضمكِ في كل وقت. سأظل أحبكِ بكل تفاصيلكِ، بجنونكِ، بهدوئكِ، وبكل ما فيكِ. \n\nأنتِ مَلِكتي، والآن وإلى الأبد، سيبقى اسمكِ هو النبض الوحيد الذي يعرفه قلبي. \n\nبحبك يا أغلى ما في حياتي. ❤️`;
-
-            let i = 0;
-            function typewriter() {
-                if (i < message.length) {
-                    box.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
-                    i++;
-                    setTimeout(typewriter, 40);
-                } else {
-                    box.style.boxShadow = "0 0 100px rgba(255, 215, 0, 0.3), 25px 25px 0 var(--pure-gold)";
-                }
-            }
-            typewriter();
-            box.scrollIntoView({ behavior: 'smooth' });
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = "#fff";
+            starsArr.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.v;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
         }
-
-        // --- INTERNAL SHAKE ANIMATION FOR ERRORS ---
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                20% { transform: translateX(-15px); }
-                40% { transform: translateX(15px); }
-                60% { transform: translateX(-15px); }
-                80% { transform: translateX(15px); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
+        drawStars();
 
     </script>
 </body>
